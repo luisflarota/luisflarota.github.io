@@ -3,9 +3,9 @@
 - name:
     detail: <a href="https://www.sdsmt.edu/Academics/Departments/Mining-Engineering-and-Management/Mining-Engineering-and-Management/" target="_blank">South Dakota School of Mines & Technology</a> <small>(USA)</small>
   desc:
-    detail: Research Assistant at the Caterpillar Lab and Advised by Dr. Robert Hall. Her, I am currently working on improving the management of traffic flow in quarries yards.
+    detail: Research Assistant at the Caterpillar Lab - working on improving the management of traffic flow in quarries yards; advised by Dr. Robert Hall.
   date:
-    detail: Spring 2022 - Present
+    detail: Jan. 2022 - Present
   job:
     detail: MSc. Student in Mining Engineering
   icon: fa-plus-square
@@ -15,8 +15,7 @@
 - name:
     detail: <a href="https://www.timining.com/" target="_blank">TiMining</a> <small>(Chile)</small>
   desc:
-    detail: Developed algorithms that ncluded mining parameters to algorithms in a Digital Twin and calibrated them
-            to replicate live performance accurately.
+    detail: Responsible for calibrating algorithms within a state-of-the-art digital twin software for open pit mining operations. Blended mining knowledge with computer programming.
   date:
     detail: Nov. 2020 - Dec. 2021
   job:
@@ -26,10 +25,9 @@
 - name:
     detail: <a href="https://www.mmg.com/our-business/las-bambas/" target="_blank">Las Bambas Copper Mine</a> <small>(Peru)</small>
   desc:
-    detail: Python Scripting for automated reports in Safety and Fleet Management Systems.
-            Monitored Fatigue through Smart Cap technologies - zero incidents recorded. 
+    detail: Worked with cross-functional teams including Occupational Health and Safety (OH&S), Fleet Management, and Short-term Planning with focus on proactive indicators to reduce the frequency of incidents and accidents.
   date:
-    detail: Feb. 2019 - Jan. 2020
+    detail: Jan. 2019 - Jan. 2020
   job:
     detail: Graduate Mining Engineer
   icon: fa-plus-square
@@ -37,18 +35,17 @@
 - name: 
     detail: <a href="https://exsa.net/en" target="_blank">EXSA - Orica Group</a> <small>(Peru)</small>
   desc:
-    detail: Development of VBA Scripts to handle material flow accurately as well as blasting designs<br>
-            Graduated with distinction.
+    detail: Development of VBA Scripts to handle material flow accurately as well as blasting designs.
   date:
-    detail: Dec. 2017 - March 2017
+    detail: Dec. 2017 - March 2018
   job:
-    detail: Mining Engineering Intern
+    detail: Mining Engineering Trainee
   icon: fa-plus-square
 
 - name:
     detail: <a href="https://www.ing.uc.cl/en/programas-de-estudio/plan-estudios/cuales-los-majors-los-minors-ingenieria-uc/major-ingenieria-minera/" target="_blank">Pontifical Catholic University of Chile</a> <small>(Chile)</small>
   desc:
-    detail: Research on a degradation model for haul trucks' tires - Exhibitor at a Seminar on Asset Management<br>
+    detail: Research on a degradation model for haul trucks' tires - Exhibitor at the XXIII Seminar on Asset Management, Santiago, Chile.
   date:
     detail: July 2017 - Dec. 2017
   job:
@@ -59,7 +56,7 @@
     detail: <a href="https://www2.ucsm.edu.pe/ciencias-e-ingenierias/ingenieria-de-minas/" target="_blank">Santa Maria Catholic University</a> <small>(Peru)</small>
   desc:
     detail: Majored in Mining Engineering.<br>
-            Graduated with distinction.
+            Awarded the Outstanding Student Award in 2013. Graduated in the top 20 percent.
   date:
     detail: March 2013 - Dec. 2017
   job:

@@ -46,7 +46,7 @@ div.section_header {
 
 [1. The Problem](#s2) <br>
 [2. The Solution ](#s3) <br>
-[___2.1 Building the application](#s4) <br>
+[2.1 Building the application](#s4) <br>
 [3. Application's features](#s5) <br>
 [4. Future Work Ideas](#s6) <br>
 [5. Code Source](#s7) <br>
@@ -55,11 +55,11 @@ div.section_header {
 
 <h2 id = "s2"> 1. The Problem </h2>
 
-When analyzing a blasting design in an open pit mining operation, we usually find explosives data saved in excel sheets that needed to be copied and pasted in a report format and then looked up.
-{% include table.html img1="/images/dact/db.png" description1="Process of doing a weekly/monthly report" %}
+When analyzing a blasting design in an open pit mining operation, we usually find explosives data saved in excel sheets that needed to be copied and pasted into a report format and then looked up.
+{% include table.html img1="/images/dact/db.png" description1="Row explosives data" %}
 
-This raw data is often used for blasting engineers to predict how fragmented the rock will be after blasted - this is based on computing some equations, i.e., Kuz Ram model. It is most likely to find this analysis in Excel files such as the following, where engineers will need to look up the explosives properties in another table and then find the best blasting parameters.
-{% include table.html img1="/images/dact/db2.png" description1="Process of doing a weekly/monthly report" %}
+This row data is often used by blasting engineers to predict how fragmented the rock will be after being blasted - this is based on computing some equations, i.e., Kuz Ram model. It is most likely to find this analysis in Excel files such as the following, where engineers will need to look up the explosives properties in another table and then find the best blasting parameters.
+{% include table.html img1="/images/dact/db2.png" description1="Report in an Excel file format" %}
 
 So<ins> how can we keep the source data for a blasting design and also their corresponding computations?</ins>
 
@@ -71,13 +71,13 @@ Instead of keep using Excel files to store and perform computations, we thought 
 *  Storing explosives data effectively
 *  Compute variables dynamically based on explosives data
 
-{% include table.html img1="/images/dact/blast1.svg" description1="Generic layout of building the graphical user interface" %}
+{% include table.html img1="/images/dact/blast1.svg" description1="Prospective solution" %}
 
 <h3 id = "s4"> 2.1 Building the application </h3>
 
 The GUI was built with [Tkinter](https://docs.python.org/3/library/tkinter.html), which offers multiple features for desktop applications.
 
-1- Inserting, viewing, updating and deleting data in a database's table
+1- Inserting, viewing, updating, and deleting data in a database table
 
 Once we got a SQLite database (located in the [Github_repo](https://github.com/luisflarota/Blasting_Project){:target="\_blank"}), we could perform multiple operations:
 
@@ -142,7 +142,7 @@ class Dabase:
 
 2- Compute all variables for Kuz-Ram model
 
-Even though one method from the app's frontend will be described here, this is not fully described here.
+Even though one method from the app frontend will be described here, this is not fully described here.
 Please, check the [frontend-code](https://github.com/luisflarota/Blasting_Project/blob/master/frontend.py){:target="\_blank"} for more information.
 ~~~python
 def solve_kuz_ram():

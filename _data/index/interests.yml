@@ -4,5 +4,5 @@ label: Interest
 id : cs
 # aspects: GitHub, Motivation, HTML5, ReactJS, Machine Learing, Python, Sleeping
 # percentage: 100, 35, 65, 80, 70, 90, 50
-aspects: Fleet Management Systems, Mine Planning, Operations Research, Reinforcement Learning, Machine Learning (Supervised)
+aspects: Fleet Management Systems, Short-term Mine Planning (+Long), Operations Research, Reinforcement Learning, Machine Learning (Supervised)
 percentage: 95, 90, 90, 60, 80

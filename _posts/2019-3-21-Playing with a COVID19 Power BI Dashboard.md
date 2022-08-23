@@ -10,7 +10,6 @@ tags: [Python, Blasting , SQLite]
 # icon: icon-html
 ---
 
-<div style='text-align:center'><em>"First, solve the problem. Then, write the code." – John Johnson</em></div>
 <br>
 <br>
 <head>

@@ -3,7 +3,7 @@ layout: post
 mathjax: true
 comments: true
 title: Solving the Ultimate Pit Limit Problem by Applying the Pseudoflow Algorithm
-date: 2021-01-19
+date: 2021-08-19
 # keywords: "Jalpc,Jekyll,gh-pages,website,blog,easy"
 categories: [projects]
 tags: [Python,UPL Mining]
@@ -39,9 +39,6 @@ div.section_header {
 ``Programming Language: Python``
 [[Link App]](https://luisflarota-ultimate-pit-limit---pseudoflow-app-l9wek4.streamlitapp.com/){:target="blank"}
 
-
-``We might need to upload a tutorial video on how to use the app in a (1) Web Browser and (2) Phone``
-
 --- 
 
 <h2> Content </h2>
@@ -49,9 +46,9 @@ div.section_header {
 [1. Some Introduction](#s1) <br>
 [2. The Problem](#s2) <br>
 [3. The Solution ](#s3) <br>
-[4. Building an Application](#s4) <br>
+[4. Building an Application + Features](#s4) <br>
 [5. Future Work Ideas](#s5) <br>
-[6. Code!](#s6) <br>
+[6. Code Source](#s6) <br>
 
 ----
 
@@ -143,17 +140,19 @@ def create_edges(self,Graph,up, low, trigger, prec, dist):
             Graph.add_edge(0, node, const = cap_abs, mult = 1)
 ~~~
 
-3- The algorithm will **push the flow** from the source to an **ore node** and it will **try to saturate the capacity**. Furthermore, it will **push from the waste node to pay waste blocks**. Therefore, as the maximum flow is found, the problem is solved and that will mean that waste blocks were paid. The following chart extracted from ['Whittle's paper'](https://www.scielo.br/scielo.php?pid=S0370-44672014000400006&script=sci_arttext){:target="\_blank"} would help you better understand what is written above: 
+3- The algorithm will **push the flow** from the source to an **ore node** and it will **try to saturate the capacity**. Furthermore, it will **push from the waste node to pay for waste blocks**. Therefore, as the maximum flow is found, the problem is solved and that will mean that waste blocks were paid. The following chart extracted from ['Whittle's paper'](https://www.scielo.br/scielo.php?pid=S0370-44672014000400006&script=sci_arttext){:target="\_blank"} would help you better understand what is written above: 
 
 {% include table.html img1="https://user-images.githubusercontent.com/64980133/109393667-16ce4380-78f1-11eb-95c2-79ff26e7b057.png" description1="Flow going through the graph"%}
         
 --- 
 
-<h2 id = "s4"> 4. Building an Application </h2>
+<h2 id = "s4"> 4. Building an Application + Features </h2>
 
 To solve this problem dynamically, and also to make people playing with it, a web application has been created by using [Streamlit](https://streamlit.io/){:target="\_blank"}.
 
 Features of the Application:
+* You can insert your own block model or play with a default one.
+{% include table.html img1="/images/dact/insertbm.jpg" description1="Uploading a block model file" %}
 
 * It can <ins>check outliers</ins> after you upload a block model in .csv format. If you do not have it, <ins>use a default one. We have everything for you!</ins>
 
@@ -192,7 +191,7 @@ his [paper](https://www.sciencedirect.com/science/article/abs/pii/S0305054819301
 
 ---
 
-<h2 id = "s6"> 6. Code </h2>
+<h2 id = "s6"> 6. Code Source </h2>
 <div id="images">
   <div class="half">
   <a href="https://github.com/luisflarota/Ultimate-Pit-Limit---Pseudoflow" target="_blank">
