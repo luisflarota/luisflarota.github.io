@@ -1,25 +1,3 @@
-# carousel banners section
-# Add items for each banner image in the carousel
-#
-# Images are expected to be located in `static/assets/img/`.
-
-- src: landing/mine_2.JPG
-  title: Pit-MLB
-
-- src: landing/per3.jpg
-  title: Airshow
-
-- src: landing/per11.JPG
-  title: Coding Setup
-
-- src: landing/per1.JPG
-  title: Falling down at Lake Tahoe
-
-- src: landing/per4.JPG
-  title: MLB
-
-- src: landing/per2.JPG
-  title: Snowboarding in NH
 
 - src: landing/per5.jpg
   title: Maras Salt Mine
