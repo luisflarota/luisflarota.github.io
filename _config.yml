@@ -1,0 +1,77 @@
+# Welcome to Jekyll!
+
+# Website settings
+title: Luis Larota
+description: Luis's blog,use Jekyll and github pages.
+keywords: ""
+baseurl: ""  # if you have suburl as homepage like '/homepage', please change it to '/homepage' and your repo's name should be 'homepage'
+url: https://luisflarota.github.io  # url should be 'http://<github_username>.github.io/homepage' as before
+# url: http://127.0.0.1:4000
+img_path: static/assets/img  # url should be '/homepage/static/assets/img/blog' as before
+
+# author -- index page "about me" section
+author:  # change following line to your infomation.
+  name: Luis Larota  # Be used at blog posts' author.
+  first_name: Luis  # Be used at index page about me section.
+  last_name: Larota  # Be used at index page about me section.
+  avatar: /static/assets/img/landing/foto_.jpg  # upload your avatar at directory and edit it.
+  linkedin_id: lflarota # Leave blank if you don't have now
+  cv: /static/assets/pdf/Resume_LarotaLuis.pdf 
+  facebook_username: luisfernando.larota.9  # Leave blank if you don't have now
+  # twitter_username:   # Leave blank if you don't have now
+  email: luis.machacca@mines.sdsmt.edu  # Leave blank if you don't have now
+  github_username: luisflarota  # Leave blank if you don't have now
+   # An online CV can be printed as PDF, leave blank if you don't have now
+  # skill icons are on avatar's left and right side. Reference urls are http://fontawesome.io/ and http://fizzed.com/oss/font-mfizz
+  skill_icon1:
+    - name: icon-python
+    - name: icon-mssql
+  skill_icon2:
+    - name: icon-git
+    - name: icon-cplusplus
+  desc: "Hi! My name is Luis Larota. I am a 25 year-old mining engineer, a data science enthusiast, and I am currently pursuing a Master's degree
+  in Mining Engineering at SDSM&T (South Dakota School of Mines and Technology). My main areas of interest are Fleet Management Systems, Short to 
+  Long Range Mine Planning, Operations Research, and Artificial Intelligence. My current home is Rapid City, SD., but I am originilly from Peru where I worked for my Bachelor's Degree in Mining Engineering. I would also say that
+  I am half Chilean because of my one-semester scholarship at PUC (Pontifical Catholic University of Chile) in 2017, and my former work experience at TiMining.
+  "
+
+# comment
+disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.
+  name: https-lflarota-github-io
+
+# analytics
+## google analytics
+# ga:  # if you wanna this feature, go to https://www.google.com/analytics/ to get your configuration; if not, comment following line.
+#   id: UA-93473370-3
+
+## google optimize
+# go:
+  # id:
+
+## growingIO
+# gio:  # if you wanna this feature, go to https://www.growingio.com/ to get your configuration; if not, comment following line.
+  # id:
+
+## donation
+# donation: on  # type 'on'/'off' to choice display donation button at post page or not
+
+## carousels
+index_carousel: on  # index page carousel switch
+blog_carousel: on  # blog page carousel switch
+
+# scss
+sass:
+  style: compressed
+
+# Build settings
+encoding: utf-8
+
+# other settings
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+mermaid:
+  src: 'path/to/mermaid.js'

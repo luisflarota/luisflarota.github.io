@@ -1,0 +1,68 @@
+# careers section data
+
+- name:
+    detail: <a href="https://www.sdsmt.edu/Academics/Departments/Mining-Engineering-and-Management/Mining-Engineering-and-Management/" target="_blank">South Dakota School of Mines & Technology</a> <small>(USA)</small>
+  desc:
+    detail: Research Assistant at the Caterpillar Lab and Advised by Dr. Robert Hall. Her, I am currently working on improving the management of traffic flow in quarries yards.
+  date:
+    detail: Spring 2022 - Present
+  job:
+    detail: MSc. Student in Mining Engineering
+  icon: fa-plus-square
+  present: true
+
+
+- name:
+    detail: <a href="https://www.timining.com/" target="_blank">TiMining</a> <small>(Chile)</small>
+  desc:
+    detail: Developed algorithms that ncluded mining parameters to algorithms in a Digital Twin and calibrated them
+            to replicate live performance accurately.
+  date:
+    detail: Nov. 2020 - Dec. 2021
+  job:
+    detail: Calibration Engineer
+  icon: fa-plus-square
+
+- name:
+    detail: <a href="https://www.mmg.com/our-business/las-bambas/" target="_blank">Las Bambas Copper Mine</a> <small>(Peru)</small>
+  desc:
+    detail: Python Scripting for automated reports in Safety and Fleet Management Systems.
+            Monitored Fatigue through Smart Cap technologies - zero incidents recorded. 
+  date:
+    detail: Feb. 2019 - Jan. 2020
+  job:
+    detail: Graduate Mining Engineer
+  icon: fa-plus-square
+
+- name: 
+    detail: <a href="https://exsa.net/en" target="_blank">EXSA - Orica Group</a> <small>(Peru)</small>
+  desc:
+    detail: Development of VBA Scripts to handle material flow accurately as well as blasting designs<br>
+            Graduated with distinction.
+  date:
+    detail: Dec. 2017 - March 2017
+  job:
+    detail: Mining Engineering Intern
+  icon: fa-plus-square
+
+- name:
+    detail: <a href="https://www.ing.uc.cl/en/programas-de-estudio/plan-estudios/cuales-los-majors-los-minors-ingenieria-uc/major-ingenieria-minera/" target="_blank">Pontifical Catholic University of Chile</a> <small>(Chile)</small>
+  desc:
+    detail: Research on a degradation model for haul trucks' tires - Exhibitor at a Seminar on Asset Management<br>
+  date:
+    detail: July 2017 - Dec. 2017
+  job:
+    detail: Exchange Student
+  icon: fa-plus-square
+
+- name:
+    detail: <a href="https://www2.ucsm.edu.pe/ciencias-e-ingenierias/ingenieria-de-minas/" target="_blank">Santa Maria Catholic University</a> <small>(Peru)</small>
+  desc:
+    detail: Majored in Mining Engineering.<br>
+            Graduated with distinction.
+  date:
+    detail: March 2013 - Dec. 2017
+  job:
+    detail: B.Sc. in Mining Engineering
+  icon: fa-plus-square
+  present: False

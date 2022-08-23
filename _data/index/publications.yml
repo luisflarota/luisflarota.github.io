@@ -1,0 +1,12 @@
+# publications section data
+# If you don't have language feature(language.yml is empty), ignore "i18n" items
+# Suggest publications.yml' img be located at '/static/assets/img/landing', and edit following img items.
+- id: Luis2017DFatique
+  img: /images/atp/TERCERA.webp
+  title: Models to Assess Fatigue Degradation
+  authors: <b>Luis Larota </b> and Carlos Nakousi
+  conference: <b>Oral Presentation at</b> XXIII International Seminar on Asset Management, Santiago.
+  year: 2017
+  # github: https://github.com/ceyzaguirre4/dact_bert
+  webpage: https://sites.google.com/site/egaf23uc/programa?authuser=0
+  pdf: https://drive.google.com/file/d/1-UTP0a9W3DdJiH6Z9IqMbwm6g2j5PdPL/view?usp=sharing

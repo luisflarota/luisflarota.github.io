@@ -1,0 +1,55 @@
+---
+layout: default
+---
+{% include mathjax.html %}
+
+<div class="wrapper wrapper-content  animated fadeInRight article" style="padding: 20px 10px 0px;">
+  <div class="row">
+      <div class="col-lg-10 col-lg-offset-1">
+          <div class="ibox">
+              <div class="ibox-content" style="padding: 40px 40px 0px;">
+                  <div class="pull-right">
+                    {% for category in page.categories %}
+                        <a class="btn btn-white btn-xs" href="{{ category | downcase | prepend: '/' | prepend: site.baseurl }}">{{ category }}</a>
+                      {% endfor %}
+                  </div>
+                  <div class="text-center article-title">
+                  <span class="text-muted"><i class="fa fa-clock-o"></i> {{ page.date | date: "%-d %b %Y" }}</span>
+                      <h1>
+                          {{ page.title }}
+                      </h1>
+                  </div>
+                    {{ content }}
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div id="vis"></div>
+<script src='https://d3js.org/d3.v4.min.js' charset='utf-8'></script>
+<script src="/gridmap.js"></script>
+
+<div class="col-lg-10 col-lg-offset-1">
+  <div class="ibox">
+        <!-- donate -->
+        <!-- {% if site.donation %}
+        {% include donate.html %}
+        {% endif %}
+        <br> -->
+        <!-- share -->
+        {% include share.html %}
+        <br>
+        <!-- comment -->
+        {% include comments.html %}
+  </div>
+</div>
+
+
+<style>
+  svg {
+    margin:auto;
+    display: block;
+  }
+
+</style>
