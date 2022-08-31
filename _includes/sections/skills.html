@@ -2,42 +2,49 @@
     <div class="row">
         <div class="col-lg-12 text-center" id="i18_skills">
             <div class="navy-line"></div>
-            <h1><span data-i18n="skills.my_skills">Research Interest</span></h1>
+            <h1><span data-i18n="skills.my_skills">Research Interests</span></h1>
         </div>
     </div>
     <div class="row features-block">
         <div class="wow zoomIn col-lg-6 col-lg-offset-3">
-            <canvas id="{{ site.data.index.skills.id }}" height="300" width="500"></canvas>
+            <canvas id="{{ site.data.index.interests.id }}" height="666" width="1100"></canvas>
         </div>
         <div class="col-lg-1"></div>
         <script>
-        var ctx = document.getElementById("{{ site.data.index.skills.id }}");
+        var ctx = document.getElementById("{{ site.data.index.interests.id }}");
         var data = {
-            labels: "{{ site.data.index.skills.aspects }}".split(","),
+            labels: "{{ site.data.index.interests.aspects }}".split(","),
             datasets: [{
-                label: "{{ site.data.index.skills.label }}",
                 backgroundColor: "rgba(179,181,198,0.2)",
-                borderColor: "#3385FF",
-                pointBackgroundColor: "#3385FF",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#3385FF",
-                pointHoverBorderColor: "#3385FF",
-                data: [{{ site.data.index.skills.percentage }}]
+                data: [{{site.data.index.interests.percentage }}]
                 }]
         };
         var myRadarChart = new Chart(ctx, {
-            type: 'radar',
+            type: 'horizontalBar',
             data: data,
-            options: {
-                scale: {
-                    responsive: true,
-                    ticks: {min: 0, max: 100},
-                    lineArc: false,
-                    pointLabels: {fontSize: 14},
-                },
-                legend: {display: false},
-            }
-        });
+            options: {legend:{display:false},
+                    scales: {
+                        xAxes: [{scaleLabel: {
+                            display: true,
+                            labelString: 'Percentage (%)'
+                                },
+                            display: true,
+                            ticks: {
+                                suggestedMin: 7
+                            }
+                        }]
+                    }
+                    },
+                    plugins: [{
+    beforeInit: function (chart) {
+      chart.data.labels.forEach(function (label, index, labelsArr) {
+        if (/\n/.test(label)) {
+          labelsArr[index] = label.split(/\n/)
+        }
+      })
+    }
+  }]
+});
         </script>
     </div>
 </div>

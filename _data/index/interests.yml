@@ -1,8 +1,6 @@
 # skills section data
-
-label: Interest
 id : cs
 # aspects: GitHub, Motivation, HTML5, ReactJS, Machine Learing, Python, Sleeping
 # percentage: 100, 35, 65, 80, 70, 90, 50
-aspects: Fleet Management Systems, Short-term Mine Planning (+Long), Operations Research, Reinforcement Learning, Machine Learning (Supervised)
-percentage: 95, 90, 90, 60, 80
+aspects: Fleet Management System \n Can we include another objective function to the LP model?,Mine Planning (+short range) \n Can we include FMS data when building short-term plans?,Operations Research \n Can we maximize the mining plan compliance\n when allocating haulage and loading equipment?, Machine Learning (Supervised) \n How will a specific shift perform during the day?\n What if we switch a shovel operator to another one?, Reinforcement Learning \n Is OR still 'good' to allocate equipment? \n Why do not we train agents based on some reward function \n(i.e. max throughput)?
+percentage: 95, 90, 90, 80, 60

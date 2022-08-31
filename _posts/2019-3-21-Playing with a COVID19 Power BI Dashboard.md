@@ -35,15 +35,16 @@ div.section_header {
 </style>
 </head>
 
-This is how the the app looks like. If you want to download and play with it, please click in the link down below:
+I have built two dashboard to see how confirmed and death cases are evolving in Peru and overseas. If you would live to see the live dashboard, please click on the link down below.
 
-``Application's link:``[[App]](https://drive.google.com/file/d/1Cis7LxpKfY-vIcs0oEPhtKg0aZNx3Bxq/view?usp=sharing){:target="\_blank"}
+``Application's link:``[[App]](https://app.powerbi.com/view?r=eyJrIjoiN2Y1ZDNhOGItMDZlOS00ZDNiLTk2ZWItMGFjZmU2ZmVhOGI1IiwidCI6IjVmZjVkOWZhLWY4M2YtNGFjMS1hNGQyLWViNDhlYTBhMDBkMiIsImMiOjR9){:target="\_blank"}
 
+In case you missed the link, this is how the dashboard looks like:
 - Peru's situation:
 
-{% include table.html img1="/images/dact/peru.png" description1="Process of doing a weekly/monthly report" %}
+{% include table.html img1="/images/dact/peru.png" description1="Covid analysis - Peru" %}
 
-- Worlwide's situation:
+- Worldwide's situation:
 
 
-{% include table.html img1="/images/dact/worldwide.png" description1="Process of doing a weekly/monthly report" %}
+{% include table.html img1="/images/dact/worldwide.png" description1="Covid analysis - worldwide" %}

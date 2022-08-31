@@ -43,7 +43,7 @@ div.section_header {
 
 <h2> Content </h2>
 
-[1. Some Introduction](#s1) <br>
+[1. Introduction](#s1) <br>
 [2. The Problem](#s2) <br>
 [3. The Solution ](#s3) <br>
 [4. Building an Application + Features](#s4) <br>
@@ -52,7 +52,7 @@ div.section_header {
 
 ----
 
-<h2 id = "s1"> 1. Some Introduction </h2>
+<h2 id = "s1"> 1. Introduction </h2>
 Mining Engineers, <u>and this is my kindly opinion</u>, have learned about solving the Ultimate Pit Limit Problems by easy examples, i.e., Lerchs-Grossman 2D Algorithm. However, that is not what we actually see when running an open-pit mining operation. Most of the current problems, including this, have been solved by software programs, and some mining engineers become users rather than doers. That being said, I decided to code the solution of the ultimated pit limit problem by applying the Pseudoflow algorithm (Hochbaum, 2008  <a href="https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf" target="_blank">\[{% increment ref_count %}\]</a>).
 
 ----
