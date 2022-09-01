@@ -44,16 +44,16 @@ div.section_header {
 
 <h2> Content </h2>
 
-[1. The Problem](#s2) <br>
-[2. The Solution ](#s3) <br>
-[2.1 Building the application](#s4) <br>
+[1. Problem statement](#s2) <br>
+[2. The solution ](#s3) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1 Building an application](#s4) <br>
 [3. Application's features](#s5) <br>
-[4. Future Work Ideas](#s6) <br>
-[5. Code Source](#s7) <br>
+[4. Future work ideas](#s6) <br>
+[5. Code source](#s7) <br>
 
 ----
 
-<h2 id = "s2"> 1. The Problem </h2>
+<h2 id = "s2"> 1. Problem statement </h2>
 
 When analyzing a blasting design in an open pit mining operation, we usually find explosives data saved in excel sheets that needed to be copied and pasted into a report format and then looked up.
 {% include table.html img1="/images/dact/db.png" description1="Row explosives data" %}
@@ -65,7 +65,7 @@ So<ins> how can we keep the source data for a blasting design and also their cor
 
 ----
 
-<h2 id = "s3"> 2. The Solution </h2>
+<h2 id = "s3"> 2. The solution </h2>
 
 Instead of keep using Excel files to store and perform computations, we thought about building a desktop graphical user interface (GUI) that could handle the two main processes of getting a Kuz-Ram curve (also see picture below):
 *  Storing explosives data effectively
@@ -73,7 +73,7 @@ Instead of keep using Excel files to store and perform computations, we thought 
 
 {% include table.html img1="/images/dact/blast1.svg" description1="Prospective solution" %}
 
-<h3 id = "s4"> 2.1 Building the application </h3>
+<h3 id = "s4"> 2.1 Building an application </h3>
 
 The GUI was built with [Tkinter](https://docs.python.org/3/library/tkinter.html), which offers multiple features for desktop applications.
 
@@ -216,7 +216,7 @@ There are two main feature in this application:
 
 ---
 
-<h2 id = "s6"> 4. Future Work Ideas </h2>
+<h2 id = "s6"> 4. Future work ideas </h2>
 
 - <ins>Build the rock parameters tab </ins>. Even though it might be just a number, it would be easier to replicate the process of getting it.
 - <ins>Research on how to show the explosives data in a table format</ins>.
@@ -225,7 +225,7 @@ There are two main feature in this application:
 
 ---
 
-<h2 id = "s7"> 5. Code Source </h2>
+<h2 id = "s7"> 5. Code source </h2>
 <div id="images">
   <div class="half">
   <a href="https://github.com/luisflarota/Blasting_Project" target="_blank">

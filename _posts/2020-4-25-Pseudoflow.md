@@ -44,11 +44,11 @@ div.section_header {
 <h2> Content </h2>
 
 [1. Introduction](#s1) <br>
-[2. The Problem](#s2) <br>
-[3. The Solution ](#s3) <br>
-[4. Building an Application + Features](#s4) <br>
-[5. Future Work Ideas](#s5) <br>
-[6. Code Source](#s6) <br>
+[2. Problem statement](#s2) <br>
+[3. The solution ](#s3) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3.1. Building an application + Features](#s4) <br>
+[4. Future work ideas](#s5) <br>
+[5. Code source](#s6) <br>
 
 ----
 
@@ -57,7 +57,7 @@ Mining Engineers, <u>and this is my kindly opinion</u>, have learned about solvi
 
 ----
 
-<h2 id = "s2"> 2. The Problem </h2>
+<h2 id = "s2"> 2. Problem statement </h2>
 
 
 <!-- [LINK TO ARXIV \[0\]](http://arxiv.org/abs/2004.12770)
@@ -72,7 +72,7 @@ Given a 3D block model, how do we find the economic envelope/volume that contain
 
 ----
 
-<h2 id = "s3"> 3. The Solution </h2>
+<h2 id = "s3"> 3. The solution </h2>
 
 The solution follows a paper from <b>Geovia Whittle, published in 2017</b>. They explain how the Pseudoflow algorithm works in detail (Geovia, 2017 <a href="https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/GEOVIA/PDF/whitepaper/2017-GEOVIA-WHITEPAPER-PSEUDOFLOW.pdf" target="_blank">\[{% increment ref_count %}\]</a>). To make life easier, this is a summary on how the algorithm works:
 
@@ -146,7 +146,7 @@ def create_edges(self,Graph,up, low, trigger, prec, dist):
         
 --- 
 
-<h2 id = "s4"> 4. Building an Application + Features </h2>
+<h2 id = "s4"> 3.1. Building an application + Features </h2>
 
 To solve this problem dynamically, and also to make people playing with it, a web application has been created by using [Streamlit](https://streamlit.io/){:target="\_blank"}.
 
@@ -180,7 +180,7 @@ Features of the Application:
 {% include table.html img1="https://user-images.githubusercontent.com/64980133/109107598-030fbb00-7700-11eb-9f92-a0a94f7433c1.png" description1="User Inputs - Economic Parameters"%}
 ---
 
-<h2 id = "s5"> 5. Future Work Ideas </h2>
+<h2 id = "s5"> 4. Future work ideas </h2>
 
 - <ins>Add a variety of slope angles</ins>. At this point in time, we are just evaluating 2 precedences which are equivalent to 45 and 40 degrees approximately.
 - <ins>Evaluate a set of revenue factors</ins> and see where to mine first - which nested pit has the highest value. Also, <ins>visualize it</ins>.
@@ -191,7 +191,7 @@ his [paper](https://www.sciencedirect.com/science/article/abs/pii/S0305054819301
 
 ---
 
-<h2 id = "s6"> 6. Code Source </h2>
+<h2 id = "s6"> 5. Code source </h2>
 <div id="images">
   <div class="half">
   <a href="https://github.com/luisflarota/Ultimate-Pit-Limit---Pseudoflow" target="_blank">

@@ -26,7 +26,7 @@
 
 - id: interests
   i18n: nav.skills
-  name: Research Interests
+  name: Research & Expertise
   tpl: interests.html
   css: team
 
