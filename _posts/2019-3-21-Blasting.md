@@ -58,16 +58,16 @@ div.section_header {
 When analyzing a blasting design in an open pit mining operation, we usually find explosives data saved in excel sheets that needed to be copied and pasted into a report format and then looked up.
 {% include table.html img1="/images/dact/db.png" description1="Row explosives data" %}
 
-This row data is often used by blasting engineers to predict how fragmented the rock will be after being blasted - this is based on computing some equations, i.e., Kuz Ram model. It is most likely to find this analysis in Excel files such as the following, where engineers will need to look up the explosives properties in another table and then find the best blasting parameters.
+Blasting engineers often use this row data to predict how fragmented the rock will be after being blasted - this is based on computing some equations, i.e., Kuz Ram model. It is most likely to find this analysis in Excel files such as the following: engineers will need to look up the explosives properties in another table and then find the best blasting parameters.
 {% include table.html img1="/images/dact/db2.png" description1="Report in an Excel file format" %}
 
-So<ins> how can we keep the source data for a blasting design and also their corresponding computations?</ins>
+So, <ins>how can we keep the source data for a blasting design and their corresponding computations?</ins>
 
 ----
 
 <h2 id = "s3"> 2. The solution </h2>
 
-Instead of keep using Excel files to store and perform computations, we thought about building a desktop graphical user interface (GUI) that could handle the two main processes of getting a Kuz-Ram curve (also see picture below):
+Instead of keeping using Excel files to store and perform computations, we thought about building a desktop graphical user interface (GUI) that could handle the two main processes of getting a Kuz-Ram curve (also see picture below):
 *  Storing explosives data effectively
 *  Compute variables dynamically based on explosives data
 
@@ -220,7 +220,7 @@ There are two main feature in this application:
 
 - <ins>Build the rock parameters tab </ins>. Even though it might be just a number, it would be easier to replicate the process of getting it.
 - <ins>Research on how to show the explosives data in a table format</ins>.
-- <ins>Get a binary file to execute the scripts</ins> Might be easier to download and run the app with one click
+- <ins>Get a binary file to execute the scripts.</ins> Might be easier to download and run the app with one click.
 
 
 ---

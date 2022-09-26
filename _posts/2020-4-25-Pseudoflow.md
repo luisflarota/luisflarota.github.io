@@ -53,7 +53,7 @@ div.section_header {
 ----
 
 <h2 id = "s1"> 1. Introduction </h2>
-Mining Engineers, <u>and this is my kindly opinion</u>, have learned about solving the Ultimate Pit Limit Problems by easy examples, i.e., Lerchs-Grossman 2D Algorithm. However, that is not what we actually see when running an open-pit mining operation. Most of the current problems, including this, have been solved by software programs, and some mining engineers become users rather than doers. That being said, I decided to code the solution of the ultimated pit limit problem by applying the Pseudoflow algorithm (Hochbaum, 2008  <a href="https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf" target="_blank">\[{% increment ref_count %}\]</a>).
+Mining Engineers, <u>and this is my kindly opinion</u>, have learned about solving the Ultimate Pit Limit Problems by easy examples, i.e., Lerchs-Grossman 2D Algorithm. However, that is not what we see when running an open-pit mining operation. Software programs have solved most of the current problems, including this, and some mining engineers become users rather than doers. That being said, I decided to code the solution to the ultimate pit limit problem by applying the Pseudoflow algorithm (Hochbaum, 2008  <a href="https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf" target="_blank">\[{% increment ref_count %}\]</a>).
 
 ----
 
@@ -65,7 +65,7 @@ Mining Engineers, <u>and this is my kindly opinion</u>, have learned about solvi
 [LINK TO CODE](https://github.com/ceyzaguirre4/DACT-MAC) -->
 
 
-Given a 3D block model, how do we find the economic envelope/volume that contains the maximum value and fits in within our operational constraints? i.e. maximum slope angles?
+Given a 3D block model, how do we find the economic envelope/volume that contains the maximum value and fits within our operational constraints? i.e., maximum slope angles?
 
 {% assign ref_count = 1 %}
 {% include table.html img1="/images/pseudo/bm.png" img2="/images/pseudo/up_.png" description1="3D Block Model" description2="Ultimate Pit Limit" %}
