@@ -1,13 +1,24 @@
 # careers section data
 
 - name:
+    detail: <a href="https://www.riotinto.com/en/404#main-search_q=operations%20us%20boron" target="_blank">Rio Tinto - Boron Site </a> <small>(USA)</small>
+  desc:
+    detail: Improving short-term plans by utilizing data analytics
+  date:
+    detail: June 2022 - August 2022
+  job:
+    detail: Mine Planning Intern 
+  icon: fa-plus-square
+  present: true
+
+- name:
     detail: <a href="https://www.sdsmt.edu/Academics/Departments/Mining-Engineering-and-Management/Mining-Engineering-and-Management/" target="_blank">South Dakota School of Mines & Technology</a> <small>(USA)</small>
   desc:
     detail: Research Assistant at the Caterpillar Lab - working on improving the management of traffic flow in quarries yards; advised by Dr. Robert Hall.
   date:
     detail: Jan. 2022 - Present
   job:
-    detail: MSc. Student in Mining Engineering
+    detail: MS(c) in Mining Engineering
   icon: fa-plus-square
   present: true
 
