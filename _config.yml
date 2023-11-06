@@ -28,7 +28,7 @@ author:  # change following line to your infomation.
   skill_icon2:
     - name: icon-git
     - name: icon-cplusplus
-  desc: "Hi! My name is Luis Larota. I am a mining engineer, a data enthusiast, and an MSc(c) in Mining Engineering at the South Dakota School of Mines and Technology, Rapid City, SD. My main areas of interest are responsible sourcing, operations research, artificial intelligence applied to fleet management systems, and short-range mine planning. My current home is Rapid City, but I am originally from Peru, where I completed my bachelor's degree in Mining Engineering."
+  desc: "Hi! My name is Luis Larota. I am a mining engineer, a data enthusiast, and an MSc(c) in Mining Engineering at the South Dakota School of Mines and Technology, Rapid City, SD. My main areas of interest are responsible sourcing, operations research, artificial intelligence applied to fleet management systems, and short-range mine planning. My current home is San Francisco, CA, but I am originally from Peru, where I completed my bachelor's degree in Mining Engineering."
 
 # comment
 disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.
