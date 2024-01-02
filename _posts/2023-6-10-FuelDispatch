@@ -77,4 +77,101 @@
 
 ---
 
-# Meth
+# Methodology - Machine Learning
+
+- Features & Labels:
+  - Feature: EFH (m), truck model, payload (tons)
+  - Label: Fuel consumed (L)
+- Machine learning algorithms: 6 supervised ML algorithms
+- Tuning: Grid search, cross-validation
+- Selection: Accuracy (R-squared), simplicity (tuning time)
+- Coding Environment: Python, Scikit-learn, Tensorflow
+
+---
+
+# Methodology - Optimization
+
+- Optimization model: Binary integer programming model
+- Objective Functions: Maximize match factor
+- Decision variables: If truck h is sent to fuel at time t
+- Constraints:
+  - <20% fuel ratio trucks refueled
+  - Trucks avoid simultaneous refueling
+  - Trucks fueling only once
+  - 15-minute refueling window
+  - 0% minimum fuel level ensured
+- Coding Environment: Python & Gurobi
+
+---
+
+# Results
+
+## Machine Learning
+
+| Algorithm | R^2 (Test) | Training Time | Tuning Time |
+| --- | --- | --- | --- |
+| Multi-Linear Regression (Base Model) | 75% | 126ms | 0s |
+| Support Vector Regression (SVR) | 75% | 31ms | 5m 21s |
+| Decision Tree Regression | 55% | 107ms | 5m 25s |
+| Gradient Boosting Regression | 66% | 139ms | 3m 29s |
+| Random Forest Regression | 64% | 109ms | 1m 07s |
+| **Artificial Neural Network** | **90%** | **65ms** | **21hr 17min** |
+
+---
+
+# Results
+
+## Optimization
+
+- First Formulation (Fuel time window):
+  - (1) Infeasible model, (2) impractical to adjust truck-shovel allocations.
+- Adjustment First Formulation:
+  - (1) Penalty for overlapping fueling, (2) non-linearity issue, and (3) variables and constraints = more time
+- Second Formulation (No fuel time window):
+  - (1) Feasible (+optimal) model, (2) Match factor improvement (avg.): 1 point, and (3) arrival difference (avg.): 10-minute difference
+
+---
+
+# Results - Demo
+
+[Watch the demo](app.webm)
+
+---
+
+# Results - Summary
+
+![Summary](summary.pdf)
+
+- ✔️ Machine learning:
+  - ANN: 90% accuracy
+  - More reliable than radio-call
+- ✔️ Optimization model:
+  - Math formulation
+  - Integral objective function
+  - <1 sec. to run for a fleet of 57 trucks
+
+---
+
+# Future work
+
+- Investigating the impact of different variables
+- Extending the sample size
+- Implementation
+- Mobile stations in the optimization model
+- Model a complete shift with the truck-shovel allocation engine
+
+---
+
+# Acknowledgments
+
+- Dr. Hall
+- Dr. Brickey
+- Dr. Kumar
+
+![Grad Students](gradstudents.pdf)
+
+---
+
+# Thank You!
+
+Questions?
