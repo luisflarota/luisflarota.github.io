@@ -39,18 +39,7 @@ div.section_header {
 ``Programming Language: Python``
 [[Link App]](https://luisflarota-650finalthesis-front-3vvewc.streamlit.app/){:target="blank"}
 
----
-layout: post
-mathjax: true
-comments: true
-title: Machine Learning and Optimization Techniques Applied to Haulage Trucks Fueling in Surface Mining Operations
-date: 2023-09-06
-categories: [projects]
-tags: [Mining Engineering, Machine Learning, Optimization]
-author: Luis Fernando Larota Machacca
-advisor: Robert Hall, PhD
-institution: South Dakota School of Mines & Technology
----
+--- 
 
 # Content
 
@@ -82,12 +71,13 @@ Given a 3D block model, how do we find the economic envelope/volume that contain
 ---
 
 <h3 id="s4">2.1. Machine learning predicting fuel consumption review</h3>
-| Author | Algorithm | Features | Metric | Perf. |
-| --- | --- | --- | --- | --- |
-| 1. Dindarloo and S. (2015) | ANN | Payload, Cycle status | MAPE | 10% |
-| 2. Dindarloo and S. (2016) | PLSR | Cycle status | MAPE | 6% |
-| 3. Wang et al. (2021) | XGBoost | Distance, Time, Uphill distance | MAPE | 8.8% |
-| **4. Soofastaei (2022)** | **ANN** | **Payload, Resistance, Speed** | **R^2** | **90%** |
+| Author               | Algorithm | Features                   | Metric | Perf. |
+|:--------------------- |:---------:| -------------------------- | ------ | ----- |
+| Dindarloo and S. (2015) | ANN     | Payload, Cycle status      | MAPE   | 10%   |
+| Dindarloo and S. (2016) | PLSR    | Cycle status               | MAPE   | 6%    |
+| Wang et al. (2021)      | XGBoost | Distance, Time, Uphill distance | MAPE | 8.8%  |
+| **Soofastaei (2022)**   | **ANN** | **Payload, Resistance, Speed** | **R^2** | **90%** |
+
 
 [^1^]: [Source](https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf)
 
