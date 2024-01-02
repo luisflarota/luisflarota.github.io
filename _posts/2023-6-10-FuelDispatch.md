@@ -71,12 +71,30 @@ Given a 3D block model, how do we find the economic envelope/volume that contain
 ---
 
 <h3 id="s4">2.1. Machine learning predicting fuel consumption review</h3>
-| Author               | Algorithm | Features                   | Metric | Perf. |
-|:--------------------- |:---------:| -------------------------- | ------ | ----- |
-| Dindarloo and S. (2015) | ANN     | Payload, Cycle status      | MAPE   | 10%   |
-| Dindarloo and S. (2016) | PLSR    | Cycle status               | MAPE   | 6%    |
-| Wang et al. (2021)      | XGBoost | Distance, Time, Uphill distance | MAPE | 8.8%  |
-| **Soofastaei (2022)**   | **ANN** | **Payload, Resistance, Speed** | **R^2** | **90%** |
+
+- Author: Dindarloo and S. (2015)
+  - Algorithm: ANN
+  - Features: Payload, Cycle status
+  - Metric: MAPE
+  - Perf.: 10%
+
+- Author: Dindarloo and S. (2016)
+  - Algorithm: PLSR
+  - Features: Cycle status
+  - Metric: MAPE
+  - Perf.: 6%
+
+- Author: Wang et al. (2021)
+  - Algorithm: XGBoost
+  - Features: Distance, Time, Uphill distance
+  - Metric: MAPE
+  - Perf.: 8.8%
+
+- Author: Soofastaei (2022)
+  - Algorithm: ANN
+  - Features: Payload, Resistance, Speed
+  - Metric: R^2
+  - Perf.: 90%
 
 
 [^1^]: [Source](https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf)
@@ -84,11 +102,31 @@ Given a 3D block model, how do we find the economic envelope/volume that contain
 ---
 
 <h3 id="s5">2.2. Fuel dispatching review</h3>
-| Approach | Features | Lacking |
-| --- | --- | --- |
-| 1. Caceres and Well (2017) | Automated fuel dispatching, better filling volumes, lower queues and person-hours | - Math formulation |
-| 2. Modular Mining Systems (2019) | Set minimum fuel level, assign manually | - Trial and error approaches; - Needs customization; - No benefits and consequences. |
-| 3. Leonida (2022) | Maximizes fuel utilization, minimizes trips to fuel locations | - Math formulation; - Multi-objective function; - No proven results |
+- Approach: Caceres and Well (2017)
+  - Features: 
+    - Automated fuel dispatching
+    - Better filling volumes
+    - Lower queues and person-hours
+  - Lacking:
+    - Math formulation
+
+- Approach: Modular Mining Systems (2019)
+  - Features:
+    - Set minimum fuel level
+    - Assign manually
+  - Lacking:
+    - Trial and error approaches
+    - Needs customization
+    - No benefits and consequences
+
+- Approach: Leonida (2022)
+  - Features:
+    - Maximizes fuel utilization
+    - Minimizes trips to fuel locations
+  - Lacking:
+    - Math formulation
+    - Multi-objective function
+    - No proven results
 
 ---
 
