@@ -13,7 +13,7 @@ img_path: static/assets/img  # url should be '/homepage/static/assets/img/blog' 
 author:  # change following line to your infomation.
   name: Luis Larota, MSc # Be used at blog posts' author.
   first_name: Luis  # Be used at index page about me section.
-  last_name: Larota  # Be used at index page about me section.
+  last_name: Larota, MSc # Be used at index page about me section.
   avatar: /static/assets/img/landing/foto_2.jpg  # upload your avatar at directory and edit it.
   linkedin_id: lflarota # Leave blank if you don't have now
   cv: /static/assets/pdf/0823Resume Luis Larota.pdf 
