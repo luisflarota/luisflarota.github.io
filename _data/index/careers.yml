@@ -2,14 +2,13 @@
 - name:
     detail: <a href="https://www.tesla.com/" target="_blank">Tesla Inc - Palo Alto </a> <small>(USA)</small>
   desc:
-    detail: Collect and analyze ESG data from suppliers and research ESG risks and standards for mining suppliers
+    detail: Collected/analyzed ESG data and researched ESG risks and standards for upstream battery minerals suppliers. 
   date:
     detail: Sept. 2023 - Dec. 2023
   job:
     detail: Incoming Responsible Sourcing Intern 
   icon: fa-plus-square
-  present: True
-  
+
 - name:
     detail: <a href="https://www.riotinto.com/en/404#main-search_q=operations%20us%20boron" target="_blank">Rio Tinto - Boron Site </a> <small>(USA)</small>
   desc:
@@ -27,9 +26,8 @@
   date:
     detail: Jan. 2022 - Dec. 2022
   job:
-    detail: MS(c) in Mining Engineering
+    detail: Graduate Research Assistant
   icon: fa-plus-square
-  present: true
 
 
 - name:
