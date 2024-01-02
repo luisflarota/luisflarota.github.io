@@ -36,6 +36,10 @@ div.section_header {
 </style>
 </head>
 
+``Programming Language: Python``
+[[Link App]](https://luisflarota-650finalthesis-front-3vvewc.streamlit.app/){:target="blank"}
+
+--
 # Fuel Dispatching
 
 ## Machine Learning and Optimization Techniques Applied to Haulage Trucks Fueling in Surface Mining Operations
@@ -62,14 +66,11 @@ div.section_header {
 
 # Introduction
 
-![Dispatchers impact in mining](intro.pdf)
 *Source: Hustrulid, W. A., Kuchta, M., and Martin, R. K. (2013). Open pit mine planning and design, two volume set & CD-ROM pack. CRC Press.*
 
 ---
 
 # Research Problem & Hypothesis
-
-![Research Problem](resarchpro.pdf)
 
 - 1. Machine learning - fuel consumption
 - 2. Optimization model - dispatching
@@ -109,7 +110,6 @@ div.section_header {
 
 ## Data Collection
 
-![Mine Z Haulage Fleet](methodata.pdf)
 - Data Retrieved from FMS
 - MF is the match factor
 
@@ -170,15 +170,8 @@ div.section_header {
 
 ---
 
-# Results - Demo
-
-[Watch the demo](app.webm)
-
----
 
 # Results - Summary
-
-![Summary](summary.pdf)
 
 - ✔️ Machine learning:
   - ANN: 90% accuracy
@@ -205,8 +198,6 @@ div.section_header {
 - Dr. Hall
 - Dr. Brickey
 - Dr. Kumar
-
-![Grad Students](gradstudents.pdf)
 
 ---
 
