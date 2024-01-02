@@ -1,3 +1,41 @@
+---
+layout: post
+mathjax: true
+comments: true
+title: Fuel Dispatching - Finding the best time to schedule mining haul trucks to fuel 
+date: 2023-06-25
+# keywords: "Jalpc,Jekyll,gh-pages,website,blog,easy"
+categories: [projects]
+tags: [Python, Machine Learning, Optimization, Mining]
+# icon: icon-html
+---
+
+<div style='text-align:center'><em>"Know how to solve every problem that has been solved." - R. Feynman (1988)</em></div>
+<br>
+<br>
+<head>
+<style>
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+</style>
+</head>
+
 # Fuel Dispatching
 
 ## Machine Learning and Optimization Techniques Applied to Haulage Trucks Fueling in Surface Mining Operations
