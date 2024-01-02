@@ -28,7 +28,7 @@ author:  # change following line to your infomation.
   skill_icon2:
     - name: icon-git
     - name: icon-cplusplus
-  desc: "Luis Fernando Larota Machacca is a dynamic mining engineering professional and data enthusiast based in San Francisco, CA. With a solid foundation in responsible sourcing, mine planning, and data science, Luis has a track record of driving operational excellence in the extractive industries and startups. His expertise spans fleet management systems, data visualization, software development, and applied research across the mining value chain. With a Master's degree in Mining Engineering from the South Dakota School of Mines & Technology, Luis combines mining knowledge with technical prowess to innovate and optimize mining operations."
+  desc: "Luis is a dynamic mining engineering professional and data enthusiast based in San Francisco, CA. With a solid foundation in responsible sourcing, mine planning, and data science, Luis has a track record of driving operational excellence in the extractive industries and startups. His expertise spans fleet management systems, data visualization, software development, and applied research across the mining value chain. With a Master's degree in Mining Engineering from the South Dakota School of Mines & Technology, Luis combines mining knowledge with technical prowess to innovate and optimize mining operations."
 # comment
 disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.
   name: https-lflarota-github-io
