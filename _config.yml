@@ -1,7 +1,7 @@
 # Welcome to Jekyll!
 
 # Website settings
-title: Luis Larota
+title: Luis Larota, MSc
 description: Luis's blog,use Jekyll and github pages.
 keywords: ""
 baseurl: ""  # if you have suburl as homepage like '/homepage', please change it to '/homepage' and your repo's name should be 'homepage'
@@ -28,8 +28,7 @@ author:  # change following line to your infomation.
   skill_icon2:
     - name: icon-git
     - name: icon-cplusplus
-  desc: "Hi! My name is Luis Larota. I am a mining engineer, a data enthusiast, and an MSc(c) in Mining Engineering at the South Dakota School of Mines and Technology, Rapid City, SD. My main areas of interest are responsible sourcing, operations research, artificial intelligence applied to fleet management systems, and short-range mine planning. My current home is San Francisco, CA, but I am originally from Peru, where I completed my bachelor's degree in Mining Engineering."
-
+  desc: "Luis Fernando Larota Machacca is a dynamic mining engineering professional and data enthusiast based in San Francisco, CA. With a solid foundation in responsible sourcing, mine planning, and data science, Luis has a track record of driving operational excellence in the extractive industries and startups. His expertise spans fleet management systems, data visualization, software development, and applied research across the mining value chain. With a Master's degree in Mining Engineering from the South Dakota School of Mines & Technology, Luis combines mining knowledge with technical prowess to innovate and optimize mining operations."
 # comment
 disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.
   name: https-lflarota-github-io
