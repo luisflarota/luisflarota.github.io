@@ -2,5 +2,5 @@
 id : cs
 # aspects: GitHub, Motivation, HTML5, ReactJS, Machine Learing, Python, Sleeping
 # percentage: 100, 35, 65, 80, 70, 90, 50
-aspects: Fleet Management Systems, Mine Planning (short range), Operations Research, Sup. Machine Learning, Reinforcement Learning
+aspects: Operations Research, Sup. Machine Learning, Reinforcement Learning, Relational Database Management Systems, Mining Engineering
 percentage: 70, 60, 50, 50, 40
