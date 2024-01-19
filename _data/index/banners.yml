@@ -3,26 +3,12 @@
 #
 # Images are expected to be located in `static/assets/img/`.
 
-- src: landing/mine_2.JPG
+- src: landing/mine1.jpeg
   title: Pit-MLB
 
 - src: landing/per11.JPG
   title: Coding Setup
 
-- src: landing/per1.JPG
-  title: Falling down at Lake Tahoe
-
-- src: landing/per4.JPG
-  title: MLB
-
-- src: landing/per2.JPG
-  title: Snowboarding in NH
-
-- src: landing/per5.jpg
-  title: Maras Salt Mine
-
-- src: landing/per6.jpg
-  title: San Francisco
 
 
 
