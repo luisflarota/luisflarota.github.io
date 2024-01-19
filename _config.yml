@@ -28,7 +28,7 @@ author:  # change following line to your infomation.
   skill_icon2:
     - name: icon-git
     - name: icon-cplusplus
-  desc: "Luis is a dynamic mining engineering professional and data enthusiast based in San Francisco, CA. With a solid foundation in mine planning, fleet management systems, data science and responsible sourcing, Luis has a track record of driving operational excellence in the extractive industries and startups. His expertise spans data visualization, software development, and applied research across the mining value chain. With a Master's degree in Mining Engineering from the South Dakota School of Mines & Technology, Luis combines mining knowledge, data-related skills and sustainability to improve mining operations."
+  desc: "Data Analytics Engineer with four years of experience enhancing data efficiency and accessibility. Skilled in blending operations research with AI, I focus on machine learning, big data, and creating intuitive visualizations. Developed Python tools for 20+ Data Engineers and Analysts and designed dashboards for streamlined data analysis. Passionate about transforming complex datasets into actionable insights, my journey is underpinned by a unique foundation that enriches my approach to data."
 # comment
 disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.
   name: https-lflarota-github-io
