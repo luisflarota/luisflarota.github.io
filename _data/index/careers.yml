@@ -2,27 +2,27 @@
 - name:
     detail: <a href="https://www.tesla.com/" target="_blank">Tesla Inc - Palo Alto </a> <small>(USA)</small>
   desc:
-    detail: Collected/analyzed ESG data and researched ESG risks and standards for upstream battery minerals suppliers. 
+    detail: Transformed battery supply chain analytics, significantly reducing emissions and enhancing data collection and analysis efficiency for sourcing professionals.
   date:
     detail: Sept. 2023 - Dec. 2023
   job:
-    detail: Battery Responsible Sourcing Intern 
+    detail: Battery Data Sourcing Intern 
   icon: fa-plus-square
 
 - name:
     detail: <a href="https://www.riotinto.com/en/404#main-search_q=operations%20us%20boron" target="_blank">Rio Tinto - Boron Site </a> <small>(USA)</small>
   desc:
-    detail: Improved short-term plans by utilizing data analytics (Foundry, Python, SQL, and PowerBI)
+    detail: Enhanced mining operations and equipment efficiency, significantly cutting operational delays and improving resource quality through innovative digital solutions.
   date:
     detail: June 2023 - Aug. 2023
   job:
-    detail: Mine Planning Intern 
+    detail: Data Engineering Intern 
   icon: fa-plus-square
 
 - name:
     detail: <a href="https://www.sdsmt.edu/Academics/Departments/Mining-Engineering-and-Management/Mining-Engineering-and-Management/" target="_blank">South Dakota School of Mines & Technology</a> <small>(USA)</small>
   desc:
-    detail: Research Assistant at the Caterpillar Lab - working on improving traffic flow management in quarries yards; advised by Dr. Robert Hall.
+    detail: Guided a diverse student team to innovate traffic and data management in nonmetal mines, significantly enhancing efficiency and accuracy with AI and advanced scheduling systems
   date:
     detail: Jan. 2022 - Dec. 2022
   job:
@@ -33,31 +33,21 @@
 - name:
     detail: <a href="https://www.timining.com/" target="_blank">TiMining</a> <small>(Chile)</small>
   desc:
-    detail: Responsible for calibrating algorithms within state-of-the-art digital twin software for open pit mining operations. Blended mining knowledge with computer programming.
+    detail: Calibrated algorithms in advanced mining digital twin software, boosting modeling efficiency and GPS accuracy, leading to significant cost savings and operational improvements.
   date:
     detail: Nov. 2020 - Dec. 2021
   job:
-    detail: Calibration Engineer
+    detail: Data Engineer
   icon: fa-plus-square
 
 - name:
     detail: <a href="https://www.mmg.com/our-business/las-bambas/" target="_blank">Las Bambas Copper Mine</a> <small>(Peru)</small>
   desc:
-    detail: Worked with cross-functional teams, including occupational health and safety (OH&S), fleet management, and short-term planning, with a focus on proactive indicators to reduce the frequency of incidents and accidents.
+    detail: Collaborated with OH&S, Fleet Management, and Planning teams, using technology to eliminate incidents and enhance safety in haulage operations.
   date:
     detail: Jan. 2019 - Jan. 2020
   job:
-    detail: Graduate Mining Engineer
-  icon: fa-plus-square
-
-- name: 
-    detail: <a href="https://exsa.net/en" target="_blank">EXSA - Orica Group</a> <small>(Peru)</small>
-  desc:
-    detail: Developed VBA scripts for proper material handling and blasting designs.
-  date:
-    detail: Dec. 2017 - March 2018
-  job:
-    detail: Mining Engineering Trainee
+    detail: Graduate Data Engineer
   icon: fa-plus-square
 
 - name:
