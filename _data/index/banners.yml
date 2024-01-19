@@ -3,7 +3,7 @@
 #
 # Images are expected to be located in `static/assets/img/`.
 
-- src: landing/mine1.jpeg
+- src: landing/mine.jpg
   title: Pit-MLB
 
 - src: landing/per11.jpg
