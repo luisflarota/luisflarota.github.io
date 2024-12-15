@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1; minimum-scale=1; user-scalable=no;">
     <meta content="Luis's blog,use Jekyll and github pages." name="description">
     <meta name="keywords" content="">
-    <meta name="author" content="Luis Larota, MSc">
-    <title>Luis Larota, MSc</title>
+    <meta name="author" content="Luis Larota">
+    <title>Luis Larota</title>
     <!-- favicon -->
     <link rel="shortcut icon" href="/static/assets/img/landing/foto_2.jpg">
     <!-- Main CSS -->
@@ -25,8 +25,162 @@
             enable_page_level_ads: true
         });
     </script>
+<style>
+    /* Dark Mode Styles */
+    body.dark-mode {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+    
+    /* Sections */
+    body.dark-mode .gray-section,
+    body.dark-mode .navy-section,
+    body.dark-mode .features-block,
+    body.dark-mode .vertical-timeline-content,
+    body.dark-mode #about-me,
+    body.dark-mode #career,
+    body.dark-mode #Publications,
+    body.dark-mode #Projects {
+        background-color: #2d2d2d;
+    }
+    
+    /* Text and Icons */
+    body.dark-mode #toggleIcon,
+    body.dark-mode .vote-icon i,
+    body.dark-mode .social-icon i {
+        color: #ffffff;
+    }
+    
+    /* Timeline */
+    body.dark-mode .vertical-timeline-content {
+        background: #2d2d2d;
+        box-shadow: 0 3px 0 #1a1a1a;
+    }
+    
+    body.dark-mode .vertical-timeline-icon {
+        background: #3498db;
+    }
+    
+    /* Links and Buttons */
+    body.dark-mode a {
+        color: #3498db;
+    }
+    
+    body.dark-mode .btn-outline {
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+    
+    body.dark-mode .btn-outline:hover {
+        color: #3498db;
+        border-color: #3498db;
+    }
+    
+    /* Lines and Borders */
+    body.dark-mode .navy-line {
+        background-color: #ffffff;
+    }
+    
+    body.dark-mode hr {
+        border-color: #3498db;
+    }
+    
+    /* Special Elements */
+    body.dark-mode .navy {
+        color: #3498db;
+    }
+    
+    body.dark-mode .vertical-timeline::before {
+        background: #3498db;
+    }
+    
+    body.dark-mode .vertical-timeline-content .vertical-date {
+        color: #ffffff;
+    }
+    
+    body.dark-mode .publication heading {
+        color: #3498db !important;
+    }
+    
+    body.dark-mode .team-member h4 {
+        color: #ffffff;
+    }
+    
+    /* Chart Specific */
+    body.dark-mode canvas {
+        background: rgba(100, 100, 100, 0.8) !important;
+    }
+    
+    /* Light Mode Reset */
+    body.light-mode {
+        background-color: #ffffff;
+        color: #333333;
+    }
+    
+    /* Toggle Button */
+    #toggleBackground {
+        transition: transform 0.3s ease;
+    }
+    
+    #toggleBackground:hover {
+        transform: scale(1.1);
+    }
+
+    /* Update for Dark Mode Titles */
+    body.dark-mode h1, 
+    body.dark-mode h2 {
+        color: #e0e0e0; /* Lighter color for titles */
+    }
+
+    /* Update for Dark Mode Chart Background */
+    body.dark-mode canvas {
+        background: rgba(100, 100, 100, 0.8) !important; /* Gray background for charts */
+    }
+
+    /* Update for Dark Mode Career Background */
+    body.dark-mode .vertical-timeline-content {
+        background: #3a3a3a; /* New color for career background */
+    }
+
+    /* Update for Dark Mode Coding Projects Background */
+    body.dark-mode .container {
+        background-color: #2d2d2d; /* Match dark mode background */
+    }
+
+    /* Add these to your existing dark mode styles */
+    body.dark-mode .navy-section {
+        background-color: #2d2d2d !important;
+    }
+
+    body.dark-mode .btn-outline {
+        color: #ffffff !important;
+        border-color: #ffffff !important;
+    }
+
+    body.dark-mode .btn-outline:hover {
+        background-color: #3498db !important;
+        border-color: #3498db !important;
+        color: #ffffff !important;
+    }
+
+    /* Remove the inline style from the button div and use this instead */
+    .coding-projects-button {
+        background: inherit;
+        padding: 5px 15px;
+    }
+
+    body.dark-mode .coding-projects-button {
+        background-color: #2d2d2d;
+    }
+</style>
+
 </head>
 <body id="page-top" class="landing-page">
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        <button id="toggleBackground" class="btn btn-circle" style="background: none; border: none; cursor: pointer;">
+            <i id="toggleIcon" class="fa fa-sun-o fa-2x" style="color: #333;"></i>
+        </button>
+    </div>
     <div class="navbar-wrapper">
         <!-- Removed the entire navbar section -->
         <!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> -->
@@ -68,6 +222,7 @@
                             <li><a href="https://github.com/luisflarota" target="blank"><i class="fa fa-github"></i></a></li>
                             <li><a href="https://www.linkedin.com/in/lflarota" target="blank"><i class="fa fa-linkedin"></i></a></li>
                             <li><a href="mailto:fernando.larota@gmail.com"><i class="fa fa-envelope-o"></i></a></li>
+                            <li><a href="https://twitter.com/luisflarota" target="blank"><i class="fa fa-twitter"></i></a></li>
                             <!-- <li><a href="/feed.xml" target="blank"><i class="fa fa-rss"></i></a></li> -->
                             <li><a href="/static/assets/2024 Resume Luis Larota.pdf" target="blank"><i class="fa fa-file-pdf-o"></i></a></li>
                         </ul>
@@ -94,71 +249,32 @@
                     <p>
                         <font size="3%">
                             <span data-i18n="about_me.des">
-                                hi, i’m luis – building data products with the supplier quality engineering team at <a href='https://www.tesla.com' target='_blank'>Tesla</a>. my journey spans engineering, mining, sustainability, and tech. <strong>Batteryroots</strong> coming soon – stay tuned!
+                                hi, i'm luis – building data products with the supplier quality engineering team at <a href='https://www.tesla.com' target='_blank'>Tesla</a>. my journey spans engineering, mining, sustainability, and tech. <strong>Batteryroots</strong> coming soon – stay tuned! <strong>research expertise:</strong> operations research, sup. machine learning, reinforcement learning, lls use, mining engineering.
                             </span>
                         </font>
                     </p>
                 </div>
             </div>
-            <!-- Added Research Expertise Chart -->
-            <div class="row features-block">
-                <div class="wow zoomIn col-lg-12 col-lg-offset-0">
-                    <canvas id="cs" height="80" width="300" style="width: 60%;"></canvas>
-                </div>
-                <div class="col-lg-1"></div>
-                <script>
-                    var ctx = document.getElementById("cs");
-                    var data = {
-                        labels: "Operations Research, Sup. Machine Learning, Reinforcement Learning, LLMs use, Mining Engineering".split(","),
-                        datasets: [{
-                            backgroundColor: "rgba(179,181,198,0.2)",
-                            data: [70, 60, 50, 50, 40]
-                        }]
-                    };
-                    var myRadarChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: data,
-                        options: {
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                yAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Expertise (%)'
-                                    }
-                                }],
-                                xAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Research Interest'
-                                    },
-                                    display: true,
-                                    ticks: {
-                                        suggestedMin: 7,
-                                        autoSkip: false,
-                                        callback: function(value) {
-                                            return value.split(" ");
-                                        }
-                                    }
-                                }]
-                            }
-                        },
-                        plugins: [{
-                            beforeInit: function (chart) {
-                                chart.data.labels.forEach(function (label, index, labelsArr) {
-                                    if (/\n/.test(label)) {
-                                        labelsArr[index] = label.split(/\n/)
-                                    }
-                                })
-                            }
-                        }]
-                    });
-                </script>
-            </div>
+            <!-- Removed Research Expertise Block -->
+            <!-- <div class="row features-block"> -->
+            <!--     <div class="col-lg-12 text-center"> -->
+            <!--         <p><strong>research expertise:</strong> operations research, sup. machine learning, reinforcement learning, lls use, mining engineering</p> -->
+            <!--     </div> -->
+            <!-- </div> -->
         </div>
     </section>
+    <!-- Replace your current button section with this -->
+    <div class="coding-projects-button">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center wow zoomIn" id="i18_blog">
+                    <div style="height: 10px;"></div>
+                    <a class="btn btn-lg btn-default btn-rounded btn-outline wow bounceIn" href="/projects/"><span data-i18n="blog.my_blog">Coding Projects</span></a>
+                    <div style="height: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section id="career" class="features gray-section timeline" style="margin-top: 0;">
         <div class="container" id="i18_career">
             <div class="row">
@@ -268,17 +384,15 @@
                     <table width="100%" align="center" border="0" cellpadding="0">
                         <tbody>
                             <tr>
-                                <td width="50%" valign="center" align="center">
-                                    <img src="/images/atp/TERCERA.webp" width="50%" style="border-style: none">
-                                </td>
-                                <td width="50%" valign="center">
+                                <td width="100%" valign="center" align="center">
                                     <font color="#2C90DE">
-                                        <heading>Models to Assess Fatigue Degradation</heading>
+                                        <h3>Models to Assess Fatigue Degradation</h3>
                                     </font>
-                                    <br>
-                                    <b>Luis Larota </b> and Carlos Nakousi <br>
+                                    <b>Luis Larota</b> and Carlos Nakousi <br>
                                     <em><b>Oral Presentation at</b> the XXIII International Seminar on Asset Management, Santiago - Chile</em>, 2017 <br>
-                                    <a href="https://drive.google.com/file/d/1-UTP0a9W3DdJiH6Z9IqMbwm6g2j5PdPL/view?usp=sharing" target="_blank">[pdf]</a> / <a href="https://sites.google.com/site/egaf23uc/programa?authuser=0" target="_blank">[Blog]</a> / <a href="https://www.youtube.com/watch?v=iw8dsceI5rQ&list=PLL6_WBNjRnNkaVVwsS4QrbTRwUL9YKcrV&index=28" target="_blank">[Talk]</a>
+                                    <a href="https://drive.google.com/file/d/1-UTP0a9W3DdJiH6Z9IqMbwm6g2j5PdPL/view?usp=sharing" target="_blank">[pdf]</a> / 
+                                    <a href="https://sites.google.com/site/egaf23uc/programa?authuser=0" target="_blank">[Blog]</a> / 
+                                    <a href="https://www.youtube.com/watch?v=iw8dsceI5rQ&list=PLL6_WBNjRnNkaVVwsS4QrbTRwUL9YKcrV&index=28" target="_blank">[Talk]</a>
                                     <div id="Luis2017DFatique" style="display:none; font-size:small;">
                                         <pre>
                                             <code>
@@ -297,25 +411,35 @@
         </div>
         <br>
     </section>
-    <section id="Projects" class="features testimonials navy-section" style="margin-top: 0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center wow zoomIn" id="i18_blog">
-                    <div style="height: 100px;"></div>
-                    <a class="btn btn-lg btn-default btn-rounded btn-outline wow bounceIn" href="/projects/"><span data-i18n="blog.my_blog">Coding Projects</span></a>
-                    <div style="height: 100px;"></div>
-                </div>
-            </div>
-        </div>
-    </section>
     <style>
         body.dark-mode {
-            background-color: black;
-            color: white;
+            background-color: #1a1a1a;
+            color: #ffffff;
         }
+        
+        body.dark-mode .gray-section {
+            background-color: #2d2d2d;
+        }
+        
+        body.dark-mode .features-block {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode #toggleIcon {
+            color: #ffffff;
+        }
+        
         body.light-mode {
-            background-color: white;
-            color: black;
+            background-color: #ffffff;
+            color: #333333;
+        }
+        
+        #toggleBackground {
+            transition: transform 0.3s ease;
+        }
+        
+        #toggleBackground:hover {
+            transform: scale(1.1);
         }
     </style>
     <script>
@@ -325,12 +449,15 @@
             // Toggle icon
             const icon = document.getElementById('toggleIcon');
             if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+                icon.classList.remove('fa-sun-o');
+                icon.classList.add('fa-moon-o');
             } else {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+                icon.classList.remove('fa-moon-o');
+                icon.classList.add('fa-sun-o');
             }
+            // Update chart colors
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            updateChartColors(isDarkMode);
         });
     </script>
     <!-- <iframe src="https://www.maimemo.com/share/page/?uid=779139&pid=660" style="display: none;"></iframe> -->
@@ -341,7 +468,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                <p id="jalpc_site_pv"><strong>&copy; 2024 Luis Larota, MSc</strong></p>
+                <p id="jalpc_site_pv"><strong>&copy; 2024 Luis Larota</strong></p>
             </div>
         </div>
     </div>
