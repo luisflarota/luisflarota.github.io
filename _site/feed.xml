@@ -1,0 +1,3256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Luis Larota, MSc</title>
+    <description>Luis&apos;s blog,use Jekyll and github pages.</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 14 Dec 2024 17:24:34 -0800</pubDate>
+    <lastBuildDate>Sat, 14 Dec 2024 17:24:34 -0800</lastBuildDate>
+    <generator>Jekyll v4.3.4</generator>
+    
+      <item>
+        <title>Fuel Dispatching - Finding the best time to schedule mining haul trucks to fuel</title>
+        <description>&lt;div style=&quot;text-align:center&quot;&gt;&lt;em&gt;&quot;Know how to solve every problem that has been solved.&quot; - R. Feynman (1988)&lt;/em&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;head&gt;
+&lt;style&gt;
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Programming Language: Python&lt;/code&gt;
+&lt;a href=&quot;https://luisflarota-650finalthesis-front-3vvewc.streamlit.app/&quot; target=&quot;blank&quot;&gt;[Link App]&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;content&quot;&gt;Content&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;#s2&quot;&gt;1. Problem statement&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s3&quot;&gt;2. Literature Review&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s4&quot;&gt;2.1. Machine learning predicting fuel consumption review&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s5&quot;&gt;2.2. Fuel dispatching review&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s6&quot;&gt;3. Methodology&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s7&quot;&gt;3.1. Data Collection&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s8&quot;&gt;3.2. Machine Learning&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s9&quot;&gt;3.3. Optimization&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s10&quot;&gt;4. Results&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s11&quot;&gt;4.1. Machine Learning&lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s12&quot;&gt;4.2. Optimization&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s14&quot;&gt;5. Future work&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s15&quot;&gt;6. Code source&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s2&quot;&gt;1. Problem statement&lt;/h2&gt;
+&lt;p&gt;Mining Engineers, and this is my kindly opinion, have learned about solving the Ultimate Pit Limit Problems by easy examples, i.e., Lerchs-Grossman 2D Algorithm. However, that is not what we see when running an open-pit mining operation. Software programs have solved most of the current problems, including this, and some mining engineers become users rather than doers. That being said, I decided to code the solution to the ultimate pit limit problem by applying the Pseudoflow algorithm (Hochbaum, 2008 [^1^]).&lt;/p&gt;
+
+&lt;p&gt;Given a 3D block model, how do we find the economic envelope/volume that contains the maximum value and fits within our operational constraints? i.e., maximum slope angles?&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s3&quot;&gt;2. Literature Review&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s4&quot;&gt;2.1. Machine learning predicting fuel consumption review&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Author: Dindarloo and S. (2015)
+    &lt;ul&gt;
+      &lt;li&gt;Algorithm: ANN&lt;/li&gt;
+      &lt;li&gt;Features: Payload, Cycle status&lt;/li&gt;
+      &lt;li&gt;Metric: MAPE&lt;/li&gt;
+      &lt;li&gt;Perf.: 10%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Author: Dindarloo and S. (2016)
+    &lt;ul&gt;
+      &lt;li&gt;Algorithm: PLSR&lt;/li&gt;
+      &lt;li&gt;Features: Cycle status&lt;/li&gt;
+      &lt;li&gt;Metric: MAPE&lt;/li&gt;
+      &lt;li&gt;Perf.: 6%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Author: Wang et al. (2021)
+    &lt;ul&gt;
+      &lt;li&gt;Algorithm: XGBoost&lt;/li&gt;
+      &lt;li&gt;Features: Distance, Time, Uphill distance&lt;/li&gt;
+      &lt;li&gt;Metric: MAPE&lt;/li&gt;
+      &lt;li&gt;Perf.: 8.8%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Author: Soofastaei (2022)
+    &lt;ul&gt;
+      &lt;li&gt;Algorithm: ANN&lt;/li&gt;
+      &lt;li&gt;Features: Payload, Resistance, Speed&lt;/li&gt;
+      &lt;li&gt;Metric: R^2&lt;/li&gt;
+      &lt;li&gt;Perf.: 90%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s5&quot;&gt;2.2. Fuel dispatching review&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Approach: Caceres and Well (2017)
+    &lt;ul&gt;
+      &lt;li&gt;Features:
+        &lt;ul&gt;
+          &lt;li&gt;Automated fuel dispatching&lt;/li&gt;
+          &lt;li&gt;Better filling volumes&lt;/li&gt;
+          &lt;li&gt;Lower queues and person-hours&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Lacking:
+        &lt;ul&gt;
+          &lt;li&gt;Math formulation&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Approach: Modular Mining Systems (2019)
+    &lt;ul&gt;
+      &lt;li&gt;Features:
+        &lt;ul&gt;
+          &lt;li&gt;Set minimum fuel level&lt;/li&gt;
+          &lt;li&gt;Assign manually&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Lacking:
+        &lt;ul&gt;
+          &lt;li&gt;Trial and error approaches&lt;/li&gt;
+          &lt;li&gt;Needs customization&lt;/li&gt;
+          &lt;li&gt;No benefits and consequences&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Approach: Leonida (2022)
+    &lt;ul&gt;
+      &lt;li&gt;Features:
+        &lt;ul&gt;
+          &lt;li&gt;Maximizes fuel utilization&lt;/li&gt;
+          &lt;li&gt;Minimizes trips to fuel locations&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Lacking:
+        &lt;ul&gt;
+          &lt;li&gt;Math formulation&lt;/li&gt;
+          &lt;li&gt;Multi-objective function&lt;/li&gt;
+          &lt;li&gt;No proven results&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s6&quot;&gt;3. Methodology&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s7&quot;&gt;3.1. Data Collection&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Data Retrieved from FMS&lt;/li&gt;
+  &lt;li&gt;MF is the match factor&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s8&quot;&gt;3.2. Machine Learning&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Features &amp;amp; Labels:
+    &lt;ul&gt;
+      &lt;li&gt;Feature: EFH (m), truck model, payload (tons)&lt;/li&gt;
+      &lt;li&gt;Label: Fuel consumed (L)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Machine learning algorithms: 6 supervised ML algorithms&lt;/li&gt;
+  &lt;li&gt;Tuning: Grid search, cross-validation&lt;/li&gt;
+  &lt;li&gt;Selection: Accuracy (R-squared), simplicity (tuning time)&lt;/li&gt;
+  &lt;li&gt;Coding Environment: Python, Scikit-learn, Tensorflow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s9&quot;&gt;3.3. Optimization&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Optimization model: Binary integer programming model&lt;/li&gt;
+  &lt;li&gt;Objective Functions: Maximize match factor&lt;/li&gt;
+  &lt;li&gt;Decision variables: If truck h is sent to fuel at time t&lt;/li&gt;
+  &lt;li&gt;Constraints:
+    &lt;ul&gt;
+      &lt;li&gt;&amp;lt;20% fuel ratio trucks refueled&lt;/li&gt;
+      &lt;li&gt;Trucks avoid simultaneous refueling&lt;/li&gt;
+      &lt;li&gt;Trucks fueling only once&lt;/li&gt;
+      &lt;li&gt;15-minute refueling window&lt;/li&gt;
+      &lt;li&gt;0% minimum fuel level ensured&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Coding Environment: Python &amp;amp; Gurobi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s10&quot;&gt;4. Results&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s11&quot;&gt;4.1. Machine Learning&lt;/h3&gt;
+&lt;p&gt;| Algorithm | R^2 (Test) | Training Time | Tuning Time |
+| — | — | — | — |
+| Multi-Linear Regression (Base Model) | 75% | 126ms | 0s |
+| Support Vector Regression (SVR) | 75% | 31ms | 5m 21s |
+| Decision Tree Regression | 55% | 107ms | 5m 25s |
+| Gradient Boosting Regression | 66% | 139ms | 3m 29s |
+| Random Forest Regression | 64% | 109ms | 1m 07s |
+| &lt;strong&gt;Artificial Neural Network&lt;/strong&gt; | &lt;strong&gt;90%&lt;/strong&gt; | &lt;strong&gt;65ms&lt;/strong&gt; | &lt;strong&gt;21hr 17min&lt;/strong&gt; |&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;s12&quot;&gt;4.2. Optimization&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;First Formulation (Fuel time window):
+    &lt;ul&gt;
+      &lt;li&gt;(1) Infeasible model, (2) impractical to adjust truck-shovel allocations.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Adjustment First Formulation:
+    &lt;ul&gt;
+      &lt;li&gt;(1) Penalty for overlapping fueling, (2) non-linearity issue, and (3) variables and constraints = more time&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Second Formulation (No fuel time window):
+    &lt;ul&gt;
+      &lt;li&gt;(1) Feasible (+optimal) model, (2) Match factor improvement (avg.): 1 point, and (3) arrival difference (avg.): 10-minute difference&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s10&quot;&gt;5. Future work&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Investigating the impact of different variables;&lt;/li&gt;
+  &lt;li&gt;Extending the sample size;&lt;/li&gt;
+  &lt;li&gt;Implementation;&lt;/li&gt;
+  &lt;li&gt;Mobile stations in the optimization model;&lt;/li&gt;
+  &lt;li&gt;Model a complete shift with the truck-shovel allocation engine.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;s10&quot;&gt;6. Code Source&lt;/h2&gt;
+&lt;div id=&quot;images&quot;&gt;
+  &lt;div class=&quot;half&quot;&gt;
+  &lt;a href=&quot;https://github.com/luisflarota/Fuel-dispatching&quot; target=&quot;_blank&quot;&gt;
+    &lt;img class=&quot;gunimage&quot; alt=&quot;idk&quot; src=&quot;../../../../static/assets/img/blog/github-icon.png?raw=true&quot; /&gt;
+    &lt;p&gt;GitHub&lt;/p&gt;
+  &lt;/a&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+&lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sun, 25 Jun 2023 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/projects/2023/06/25/FuelDispatch.html</link>
+        <guid isPermaLink="true">http://localhost:4000/projects/2023/06/25/FuelDispatch.html</guid>
+        
+        <category>Python</category>
+        
+        <category>Machine Learning</category>
+        
+        <category>Optimization</category>
+        
+        <category>Mining</category>
+        
+        
+        <category>projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Solving the Ultimate Pit Limit Problem by Applying the Pseudoflow Algorithm</title>
+        <description>&lt;div style=&quot;text-align:center&quot;&gt;&lt;em&gt;&quot;Know how to solve every problem that has been solved.&quot; - R. Feynman (1988)&lt;/em&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;head&gt;
+&lt;style&gt;
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Programming Language: Python&lt;/code&gt;
+&lt;a href=&quot;https://luisflarota-ultimate-pit-limit---pseudoflow-app-l9wek4.streamlitapp.com/&quot; target=&quot;blank&quot;&gt;[Link App]&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt; Content &lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#s1&quot;&gt;1. Introduction&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s2&quot;&gt;2. Problem statement&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s3&quot;&gt;3. The solution &lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s4&quot;&gt;3.1. Building an application + Features&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s5&quot;&gt;4. Future work ideas&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s6&quot;&gt;5. Code source&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s1&quot;&gt; 1. Introduction &lt;/h2&gt;
+&lt;p&gt;Mining Engineers, &lt;u&gt;and this is my kindly opinion&lt;/u&gt;, have learned about solving the Ultimate Pit Limit Problems by easy examples, i.e., Lerchs-Grossman 2D Algorithm. However, that is not what we see when running an open-pit mining operation. Software programs have solved most of the current problems, including this, and some mining engineers become users rather than doers. That being said, I decided to code the solution to the ultimate pit limit problem by applying the Pseudoflow algorithm (Hochbaum, 2008  &lt;a href=&quot;https://hochbaum.ieor.berkeley.edu/html/pub/Hochbaum-OR.pdf&quot; target=&quot;_blank&quot;&gt;[0]&lt;/a&gt;).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s2&quot;&gt; 2. Problem statement &lt;/h2&gt;
+
+&lt;!-- [LINK TO ARXIV \[0\]](http://arxiv.org/abs/2004.12770)
+
+[LINK TO CODE](https://github.com/ceyzaguirre4/DACT-MAC) --&gt;
+
+&lt;p&gt;Given a 3D block model, how do we find the economic envelope/volume that contains the maximum value and fits within our operational constraints? i.e., maximum slope angles?&lt;/p&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/pseudo/bm.png&quot; alt=&quot;3D Block Model&quot; /&gt;&lt;/th&gt;
+                
+                  &lt;th style=&quot;text-align: center&quot;&gt;&amp;nbsp;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/pseudo/up_.png&quot; alt=&quot;Ultimate Pit Limit&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;3D Block Model&lt;/em&gt;&lt;/td&gt;
+                
+                  &lt;td style=&quot;text-align: center&quot;&gt;&amp;nbsp;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Ultimate Pit Limit&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s3&quot;&gt; 3. The solution &lt;/h2&gt;
+
+&lt;p&gt;The solution follows a paper from &lt;b&gt;Geovia Whittle, published in 2017&lt;/b&gt;. They explain how the Pseudoflow algorithm works in detail (Geovia, 2017 &lt;a href=&quot;https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/GEOVIA/PDF/whitepaper/2017-GEOVIA-WHITEPAPER-PSEUDOFLOW.pdf&quot; target=&quot;_blank&quot;&gt;[1]&lt;/a&gt;). To make life easier, this is a summary on how the algorithm works:&lt;/p&gt;
+
+&lt;p&gt;1- Estimate &lt;strong&gt;each block’s value&lt;/strong&gt; based on economic parameters:&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Cutoff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Grade&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MiningCost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProcessingCost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dilution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MetalPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Recovery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;block&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Blocks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;block_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grade_of_block&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Recovery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MetalPrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ProcessingCost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MiningCost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tons&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grade_of_block&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CutoffGrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;block_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MiningCost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Tons&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2- Create a directed graph with our block model. For that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Nodes: We will have 3 types of nodes:
+    &lt;ul&gt;
+      &lt;li&gt;Source: The graph starts here. Also, where the flow will start.&lt;/li&gt;
+      &lt;li&gt;Sink: The graph ends here. Also, where the flow will end.&lt;/li&gt;
+      &lt;li&gt;A block: Considered as a node&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Edges:
+    &lt;ul&gt;
+      &lt;li&gt;Source -&amp;gt; a block: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if the block&apos;s value is positive&lt;/code&gt;; the edge’s weight will be the block value.&lt;/li&gt;
+      &lt;li&gt;Block -&amp;gt; block: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if allowed by the precedence, i.e, 1-5 precedence (45 degrees)&lt;/code&gt;; the edge’s weight will be the block value.&lt;/li&gt;
+      &lt;li&gt;Block -&amp;gt; sink: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if the block&apos;s value is negative&lt;/code&gt;; the edge’s weight will be the block value (negative).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Hint: You can use &lt;a href=&quot;https://networkx.org/&quot; target=&quot;\_blank&quot;&gt;‘Networkx’&lt;/a&gt; to build your graph or do it by your own using dictionaries in Python.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;precedence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Create an empty directed graph.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NetX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DiGraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;precedence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modez&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;precedence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modez&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;steps_z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;upper_bench&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;col_compare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lower_bench&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;col_compare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create_edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;low&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;precedence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Shrink the block model when going down - it reduces the computational time.
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;miny&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bmodel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;low&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Create internal edges - Block to block.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;tree_upper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spatial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;cKDTree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Get the closest block for each block, yet complying the precedences.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree_upper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;query_ball_point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;low&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reach&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+              &lt;span class=&quot;c1&quot;&gt;# Add internal edge + adding a weight of 99e9 (infinite).
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_edge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;low&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;99e9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#Create external edges - Source to block to sink.
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;player&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;capacity&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;player&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cap_abs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;around&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decimals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Create an edge from a node to the sink if bvalue less than 0
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;capacity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_edge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap_abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Otherwise the source is connected to the block.
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add_edge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap_abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3- The algorithm will &lt;strong&gt;push the flow&lt;/strong&gt; from the source to an &lt;strong&gt;ore node&lt;/strong&gt; and it will &lt;strong&gt;try to saturate the capacity&lt;/strong&gt;. Furthermore, it will &lt;strong&gt;push from the waste node to pay for waste blocks&lt;/strong&gt;. Therefore, as the maximum flow is found, the problem is solved and that will mean that waste blocks were paid. The following chart extracted from &lt;a href=&quot;https://www.scielo.br/scielo.php?pid=S0370-44672014000400006&amp;amp;script=sci_arttext&quot; target=&quot;\_blank&quot;&gt;‘Whittle’s paper’&lt;/a&gt; would help you better understand what is written above:&lt;/p&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/64980133/109393667-16ce4380-78f1-11eb-95c2-79ff26e7b057.png&quot; alt=&quot;Flow going through the graph&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Flow going through the graph&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s4&quot;&gt; 3.1. Building an application + Features &lt;/h2&gt;
+
+&lt;p&gt;To solve this problem dynamically, and also to make people playing with it, a web application has been created by using &lt;a href=&quot;https://streamlit.io/&quot; target=&quot;\_blank&quot;&gt;Streamlit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Features of the Application:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;You can insert your own block model or play with a default one.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/insertbm.jpg&quot; alt=&quot;Uploading a block model file&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Uploading a block model file&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It can &lt;ins&gt;check outliers&lt;/ins&gt; after you upload a block model in .csv format. If you do not have it, &lt;ins&gt;use a default one. We have everything for you!&lt;/ins&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;What do we mean with outliers?
+        &lt;ul&gt;
+          &lt;li&gt;Block’s coordinates that are out of the big block, meaning that an &lt;em&gt;specific block does not belong to a 3D cubic beatiful form.&lt;/em&gt;&lt;/li&gt;
+          &lt;li&gt;Block’s coordinates that are &lt;ins&gt;not in the proper gravity center&lt;/ins&gt;.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;ins&gt;3D Visualization:&lt;/ins&gt; Select some lower and upper bounds for what you want to see and grades’ ranges and we will color-code based on it.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/64980133/109393924-5f3a3100-78f2-11eb-86dc-bb77fcb2518c.png&quot; alt=&quot;3D Block Model Visualization&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;3D Block Model Visualization&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;GradeTonnage Distribution &lt;/ins&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/64980133/109393968-8ee93900-78f2-11eb-88e4-9d3fbe7ac45f.png&quot; alt=&quot;Grade-Tonnage Distribution&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Grade-Tonnage Distribution&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;Input the economic parameters to get the blocks’ value&lt;/ins&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/64980133/109394014-cb1c9980-78f2-11eb-9ead-82c34d5c9b9f.png&quot; alt=&quot;User Inputs - Economic Parameters&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;User Inputs - Economic Parameters&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;Run the Algorithm and visualize your &lt;strong&gt;beatiful pit limit&lt;/strong&gt;&lt;/ins&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/64980133/109107598-030fbb00-7700-11eb-9f92-a0a94f7433c1.png&quot; alt=&quot;User Inputs - Economic Parameters&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;User Inputs - Economic Parameters&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s5&quot;&gt; 4. Future work ideas &lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;Add a variety of slope angles&lt;/ins&gt;. At this point in time, we are just evaluating 2 precedences which are equivalent to 45 and 40 degrees approximately.&lt;/li&gt;
+  &lt;li&gt;&lt;ins&gt;Evaluate a set of revenue factors&lt;/ins&gt; and see where to mine first - which nested pit has the highest value. Also, &lt;ins&gt;visualize it&lt;/ins&gt;.&lt;/li&gt;
+  &lt;li&gt;Use some Operations Research techniques to &lt;ins&gt;draw automated inpit and expit ramps&lt;/ins&gt;. Dr. Yarmuch developed an algorithm to solve this problem and 
+his &lt;a href=&quot;https://www.sciencedirect.com/science/article/abs/pii/S030505481930173X&quot; target=&quot;\_blank&quot;&gt;paper&lt;/a&gt; is worth reading.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s6&quot;&gt; 5. Code source &lt;/h2&gt;
+&lt;div id=&quot;images&quot;&gt;
+  &lt;div class=&quot;half&quot;&gt;
+  &lt;a href=&quot;https://github.com/luisflarota/Ultimate-Pit-Limit---Pseudoflow&quot; target=&quot;_blank&quot;&gt;
+    &lt;img class=&quot;gunimage&quot; alt=&quot;idk&quot; src=&quot;../../../../static/assets/img/blog/github-icon.png?raw=true&quot; /&gt;
+    &lt;p&gt;GitHub&lt;/p&gt;
+  &lt;/a&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+&lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  /* overwrite mains max width so vis can use full width */
+  img {
+    max-width:100%;
+  }
+&lt;/style&gt;
+
+</description>
+        <pubDate>Thu, 19 Aug 2021 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/projects/2021/08/19/Pseudoflow.html</link>
+        <guid isPermaLink="true">http://localhost:4000/projects/2021/08/19/Pseudoflow.html</guid>
+        
+        <category>Python</category>
+        
+        <category>UPL Mining</category>
+        
+        
+        <category>projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Creating a Descriptive Web Dashboard for Safety Reporting</title>
+        <description>&lt;div style=&quot;text-align:center&quot;&gt;&lt;em&gt;&quot;Software is the language of automation&quot; - J. Huang (1963)&lt;/em&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;head&gt;
+&lt;style&gt;
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Programming Language: Python&lt;/code&gt;
+&lt;a href=&quot;https://luisflarota-safety-project-front-z332hr.streamlitapp.com/&quot; target=&quot;\_blank&quot;&gt;[Link App]&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt; Content &lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#s2&quot;&gt;1. Problem statement&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s3&quot;&gt;2. The solution &lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s4&quot;&gt;2.1. Building an application&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s5&quot;&gt;3. Application’s features&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s6&quot;&gt;4. Future work ideas&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s7&quot;&gt;5. Code source&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s2&quot;&gt; 1. Problem statement &lt;/h2&gt;
+&lt;p&gt;We sometimes might find daily, weekly and monthly reports that consume (and make us waste) much time with repetitive tasks.&lt;/p&gt;
+
+&lt;p&gt;In the following case, we found a daily report that consumed at least 30 minutes daily. The source of data for this report comes from an ERP system. The person building the report was supposed to download data from it and do some transformations based on the report format, i.e., filtering, getting pivot tables, drawing some charts, unpivoting tables, and pasting everything into a PowerPoint file - as shown in the flowchart below. Once this report was ready, mistakes must have been avoided, which meant a double check and more time wasted. Then, the report could be sent to the corresponding managers at the mine operation. &lt;ins&gt; Therefore, this report should be done every single day until it is not needed (it might not happen, though).&lt;/ins&gt;&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/first.svg&quot; alt=&quot;Process of doing a daily report&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Process of doing a daily report&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;Furthermore, we also found that this “reporting person” was supposed to do a weekly and monthly report with a similar format. However, building these two was more cumbersome than the daily report. There were many gaps to fill out in an Excel file and numerical values that needed to be checked multiple times because these were sent to a corporate office (see the flowchart below). In practice, there is always a mistake when dealing with multiple computations simultaneously. &lt;ins&gt; To be more chaotic, if the “reporting” person was asked to share the Excel file from previous reports, that was his/her end because they would need to build it again.&lt;/ins&gt;&lt;/p&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/second.svg&quot; alt=&quot;Process of doing a weekly/monthly report&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Process of doing a weekly/monthly report&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;&lt;ins&gt; Then, how can we automate this process and make life easier for this reporting person? What can make us focus on the actions brought from these indicators rather than computing them?&lt;/ins&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s3&quot;&gt; 2. The solution &lt;/h2&gt;
+
+&lt;p&gt;We thought about building a web dashboard so that it conveys the daily, weekly, and monthly reports. That way, each manager at the mine site could access this information in real time.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt; For the daily, &lt;/ins&gt;there is still a manual process - the “reporting person” should download a file for the current date. Once this is done, this should be uploaded to the web system, and that would be it! There is a chance to build a task scheduler that automatically downloads it from third-party software, but this is still in development. In addition, on the side of &lt;ins&gt; the weekly and monthly report&lt;/ins&gt;, the only manual process would be to feed the source data, as shown in the flowchart below.&lt;/p&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/sol.svg&quot; alt=&quot;Prospective solution&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Prospective solution&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;h3 id=&quot;s4&quot;&gt; 2.1 Building the application &lt;/h3&gt;
+&lt;p&gt;The dashboard is built using the &lt;a href=&quot;https://streamlit.io/&quot; target=&quot;\_blank&quot;&gt;Streamlit&lt;/a&gt;  framework in Python, and there are two primary components of this prospective app that may need to be described.&lt;/p&gt;
+
+&lt;p&gt;1- Uploading and updating the Excel parent file for a daily report.&lt;/p&gt;
+
+&lt;p&gt;For this case, a .txt file containing the names of the files already saved in the parent file, i.e., SHEC-2020_Aug_2.csv, would help us check if the uploaded file is already in the Excel parent file. If the filename is not there, it will be merged with the Excel parent file; otherwise, it will be avoided.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Text file path
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_txt_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;...dates.txt&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Folder path - this is where you will download your &quot;newest&quot;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_csv_files&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;..dir_of_your_files&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Read text file
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dates_in_txt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;loadtxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_text_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Check if the &quot;newest&quot; file is already in the txt file. If so, names will be added to a list
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;csv_files_left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;csvfile&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;csvfile&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_csv_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;csvfile&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;loadtxt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_text_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Merge files in the list with the parent file.
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;csv_left&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;csv_files_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pd_csv_left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_csv_files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;csv_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;all_hazards&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_hazards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd_csv_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;nf&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_text_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;csv_left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Save the merged Excel file
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_hazards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;AllHazards.csv&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2- Fixing the process of reading data when the website is being clicked.&lt;/p&gt;
+
+&lt;p&gt;Streamlit offers a function decorator, @st…, that bypasses this process (if stated). The following is written explicitly in the application.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@st.experimental_singleton&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_hazards_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+    Read the source data for daily, weekly and monthly reports.
+    Args:
+        new_hazards_file (str or dataframe): Help see if there is a new
+                            hazard file. This plays with the function
+                            decorator in line 25.
+    Returns:
+        Main (class): Instantiate a class that got multiple objects.&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Main&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;back_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CargaReports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_hazards_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Main&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CargaReports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 
+    Load 3 main files for daily (03_AllHazrds), 
+    weekly and monthly (the other 2)
+    &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newhazard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_hazards&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;03_AllHazards.xlsx&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;file_incidents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;01_Accidents_Fill.xlsx&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;man_hours&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;02_ManHoursWorked.csv&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; 
+        &lt;span class=&quot;bp&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s5&quot;&gt; 3. Application&apos;s features &lt;/h2&gt;
+
+&lt;p&gt;This application has multiple features for a daily side:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Download and upload new raw data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/firstp.png&quot; alt=&quot;Download and upload newest raw data for a daily report&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Download and upload newest raw data for a daily report&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;View Report: Check main chart of organizational units meeting a specific KPI and its details. We can also download a power point file
+corresponding to the chosen date.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/secp.png&quot; alt=&quot;Daily report content&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Daily report content&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;Downloaded power point file - this will be similar as shown in the web dashboard, but it is ready to be sent to other people.&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/thirdp.png&quot; alt=&quot;Downloading a power point file report&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Downloading a power point file report&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, we have the following design for the weekly and monthly report.&lt;/p&gt;
+
+&lt;p&gt;For a weekly:&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/fourth.png&quot; alt=&quot;Weekly report design&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Weekly report design&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;For a monthly:&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/fifth.png&quot; alt=&quot;Monthly report design&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Monthly report design&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s6&quot;&gt; 4. Future work ideas &lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;Build a task scheduler to (1) download data from the ERP system or (2) query a SQL database&lt;/ins&gt;. We are downloading a “fictional” file to replicate this process, but it would be helpful to have that process automated.&lt;/li&gt;
+  &lt;li&gt;&lt;ins&gt;Predict accidents&lt;/ins&gt;. We have live data from hazards reporting, person-hours worked, and previous incidents - with these variables, we can predict the likelihood of an accident occurring in the future and even the likelihood of each type (including more variables for sure).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s7&quot;&gt; 5. Code source&lt;/h2&gt;
+&lt;div id=&quot;images&quot;&gt;
+  &lt;div class=&quot;half&quot;&gt;
+  &lt;a href=&quot;https://github.com/luisflarota/Safety_Project&quot; target=&quot;_blank&quot;&gt;
+    &lt;img class=&quot;gunimage&quot; alt=&quot;idk&quot; src=&quot;../../../../static/assets/img/blog/github-icon.png?raw=true&quot; /&gt;
+    &lt;p&gt;GitHub&lt;/p&gt;
+  &lt;/a&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+&lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  /* overwrite mains max width so vis can use full width */
+  img {
+    max-width:100%;
+  }
+&lt;/style&gt;
+
+</description>
+        <pubDate>Sat, 23 Jan 2021 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/projects/2021/01/23/Safety.html</link>
+        <guid isPermaLink="true">http://localhost:4000/projects/2021/01/23/Safety.html</guid>
+        
+        <category>Python</category>
+        
+        <category>Data Analysis</category>
+        
+        <category>Web APIs</category>
+        
+        <category>Safety</category>
+        
+        
+        <category>projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Building a Graphic User Interface for Blasting purposes - KUZ Ram Curve</title>
+        <description>&lt;div style=&quot;text-align:center&quot;&gt;&lt;em&gt;&quot;First, solve the problem. Then, write the code.&quot; – John Johnson&lt;/em&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;head&gt;
+&lt;style&gt;
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Programming Language: Python&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Relational Database Management System: SQLite&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2&gt; Content &lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#s2&quot;&gt;1. Problem statement&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s3&quot;&gt;2. The solution &lt;/a&gt; &lt;br /&gt;
+    &lt;a href=&quot;#s4&quot;&gt;2.1 Building an application&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s5&quot;&gt;3. Application’s features&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s6&quot;&gt;4. Future work ideas&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&quot;#s7&quot;&gt;5. Code source&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s2&quot;&gt; 1. Problem statement &lt;/h2&gt;
+
+&lt;p&gt;When analyzing a blasting design in an open pit mining operation, we usually find explosives data saved in excel sheets that needed to be copied and pasted into a report format and then looked up.&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/db.png&quot; alt=&quot;Row explosives data&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Row explosives data&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;Blasting engineers often use this row data to predict how fragmented the rock will be after being blasted - this is based on computing some equations, i.e., Kuz Ram model. It is most likely to find this analysis in Excel files such as the following: engineers will need to look up the explosives properties in another table and then find the best blasting parameters.&lt;/p&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/db2.png&quot; alt=&quot;Report in an Excel file format&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Report in an Excel file format&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;So, &lt;ins&gt;how can we keep the source data for a blasting design and their corresponding computations?&lt;/ins&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s3&quot;&gt; 2. The solution &lt;/h2&gt;
+
+&lt;p&gt;Instead of keeping using Excel files to store and perform computations, we thought about building a desktop graphical user interface (GUI) that could handle the two main processes of getting a Kuz-Ram curve (also see picture below):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Storing explosives data effectively&lt;/li&gt;
+  &lt;li&gt;Compute variables dynamically based on explosives data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/blast1.svg&quot; alt=&quot;Prospective solution&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Prospective solution&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;h3 id=&quot;s4&quot;&gt; 2.1 Building an application &lt;/h3&gt;
+
+&lt;p&gt;The GUI was built with &lt;a href=&quot;https://docs.python.org/3/library/tkinter.html&quot;&gt;Tkinter&lt;/a&gt;, which offers multiple features for desktop applications.&lt;/p&gt;
+
+&lt;p&gt;1- Inserting, viewing, updating, and deleting data in a database table&lt;/p&gt;
+
+&lt;p&gt;Once we got a SQLite database (located in the &lt;a href=&quot;https://github.com/luisflarota/Blasting_Project&quot; target=&quot;\_blank&quot;&gt;Github_repo&lt;/a&gt;), we could perform multiple operations:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dabase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+        Connects to the dbase.
+        Args:
+            db (.db file): path of the db file
+        &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Connect to db 
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlite3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check_same_thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Allow to execute statements
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Make sure that the table for explosives exist
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CREATE TABLE IF NOT EXISTS explosives &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;                (id INTEGER PRIMARY KEY, name FIXED,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;                density FLOAT, VOD INTEGER,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;                     Deton_Pressure FLOAT, Energy FLOAT, Weigth_S FLOAT)&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+                     &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detpre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;energy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+        Insert properties for a new explosive. This comes from some input boxes
+        Args:
+            name (str)        : Name of the explosive
+            density(float)    : Density of the ..
+            vod   (float)     : Velocity of detonation
+            detpre (float)    : Detonation Pressure
+            energy (float)    : Energy
+            wes (float)       : Weigh pressure compared to ANFO
+        &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# First one for id
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;INSERT INTO explosives VALUES (NULL, ?, ?, ?, ?, ?, ?)&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detpre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;energy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; Show row data from explosives table in the GUI&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;SELECT * from explosives&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# Show them in a list - this is the best way
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# to show data in Tkinter TODO: might be another though
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;rows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetchall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rows&lt;/span&gt;   
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detpre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;energy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; Will update the database if row added from insert method&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;UPDATE explosives SET name = ?, density = ?, &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;                VOD = ?, Deton_Pressure =?, Energy = ?, &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;                    Weigth_S = ? WHERE id = ?&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;density&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detpre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;energy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2- Compute all variables for Kuz-Ram model&lt;/p&gt;
+
+&lt;p&gt;Even though one method from the app frontend will be described here, this is not fully described here.
+Please, check the &lt;a href=&quot;https://github.com/luisflarota/Blasting_Project/blob/master/frontend.py&quot; target=&quot;\_blank&quot;&gt;frontend-code&lt;/a&gt; for more information.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;solve_kuz_ram&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;h_column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textstem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textsd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Tons/hole
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;ton_hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textsi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textrd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Height of explosive that is in the column (this is different dfor the bottom)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;h_explosiv_column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h_column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;texthf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Q for bottom as well for column
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# Texthf is height of explosive at the bottom
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5067&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;text_dens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hole_diameter_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;texthf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5067&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;textdec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hole_diameter_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h_explosiv_column&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subdrilling_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5067&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text_dens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hole_diameter_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textsd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# total Q, stemming is included
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;total_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# total Q, stemming is not included
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;total_charge_nostem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subdrilling_charge&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# WS of the whole hole
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;total_weight_strenght&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textweb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subdrilling_charge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textwec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subdrilling_charge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Power factor, which is in gr/ton
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;power_factor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ton_hole&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 50 prob which is in mm
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# textrf is rockfactor
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# textrd is rockdensity
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;d_50&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textrf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ton_hole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textrd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_charge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;115&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total_weight_strenght&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.633&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Uniformity index
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Staggered&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pattern_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pattern_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uniform_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern_value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;h_column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textsd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;mf&quot;&gt;2.2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hole_diameter_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;25.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textsi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textdd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textbi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+                    &lt;span class=&quot;nf&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottom_charge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_charge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uniform_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniform_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#Particular size
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;particular_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d_50&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.693&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniform_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;particular_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;particular_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s5&quot;&gt; 3. Application’s features &lt;/h2&gt;
+
+&lt;p&gt;There are two main feature in this application:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Handling data in the SQLite database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/db_f.png&quot; alt=&quot;Databases tab - GUI&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Databases tab - GUI&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Getting the Kuz and Ram Curve&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/db_s.png&quot; alt=&quot;Estimation tab - GUI&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Estimation tab - GUI&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s6&quot;&gt; 4. Future work ideas &lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;ins&gt;Build the rock parameters tab &lt;/ins&gt;. Even though it might be just a number, it would be easier to replicate the process of getting it.&lt;/li&gt;
+  &lt;li&gt;&lt;ins&gt;Research on how to show the explosives data in a table format&lt;/ins&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;ins&gt;Get a binary file to execute the scripts.&lt;/ins&gt; Might be easier to download and run the app with one click.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;s7&quot;&gt; 5. Code source &lt;/h2&gt;
+&lt;div id=&quot;images&quot;&gt;
+  &lt;div class=&quot;half&quot;&gt;
+  &lt;a href=&quot;https://github.com/luisflarota/Blasting_Project&quot; target=&quot;_blank&quot;&gt;
+    &lt;img class=&quot;gunimage&quot; alt=&quot;idk&quot; src=&quot;../../../../static/assets/img/blog/github-icon.png?raw=true&quot; /&gt;
+    &lt;p&gt;GitHub&lt;/p&gt;
+  &lt;/a&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+&lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  /* overwrite mains max width so vis can use full width */
+  img {
+    max-width:100%;
+  }
+&lt;/style&gt;
+
+</description>
+        <pubDate>Fri, 27 Nov 2020 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/projects/2020/11/27/Blasting.html</link>
+        <guid isPermaLink="true">http://localhost:4000/projects/2020/11/27/Blasting.html</guid>
+        
+        <category>Python</category>
+        
+        <category>Blasting</category>
+        
+        <category>SQLite</category>
+        
+        
+        <category>projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Playing with a COVID19 Power BI Dashboard</title>
+        <description>&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+&lt;head&gt;
+&lt;style&gt;
+.gunimage {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+}
+.half {
+  width:50%;
+  float: left;
+}
+#images {
+  text-align: center;
+  width: 100%;
+}
+div.section_header {
+  font-size: x-large;
+  color: rgb(30,144,255);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;p&gt;I have built two dashboard to see how confirmed and death cases are evolving in Peru and overseas. If you would live to see the live dashboard, please click on the link down below.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Application&apos;s link:&lt;/code&gt;&lt;a href=&quot;https://app.powerbi.com/view?r=eyJrIjoiN2Y1ZDNhOGItMDZlOS00ZDNiLTk2ZWItMGFjZmU2ZmVhOGI1IiwidCI6IjVmZjVkOWZhLWY4M2YtNGFjMS1hNGQyLWViNDhlYTBhMDBkMiIsImMiOjR9&quot; target=&quot;\_blank&quot;&gt;[App]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In case you missed the link, this is how the dashboard looks like:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Peru’s situation:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/peru.png&quot; alt=&quot;Covid analysis - Peru&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Covid analysis - Peru&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Worldwide’s situation:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;padding: 10px; border-radius: 10px; border-color: black; border-style: solid; border-width: thin;&quot;&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;th style=&quot;text-align: center&quot;&gt;&lt;img src=&quot;/images/dact/worldwide.png&quot; alt=&quot;Covid analysis - worldwide&quot; /&gt;&lt;/th&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody style=&quot;border: none&quot;&gt;
+      &lt;tr&gt;
+        
+          
+              
+                &lt;td style=&quot;text-align: center&quot;&gt;&lt;em style=&quot;font-size: 0.8em&quot;&gt;Covid analysis - worldwide&lt;/em&gt;&lt;/td&gt;
+                
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+            
+        
+          
+              
+          
+        
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 08 Sep 2020 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/projects/2020/09/08/Playing-with-a-COVID19-Power-BI-Dashboard.html</link>
+        <guid isPermaLink="true">http://localhost:4000/projects/2020/09/08/Playing-with-a-COVID19-Power-BI-Dashboard.html</guid>
+        
+        <category>Python</category>
+        
+        <category>Blasting</category>
+        
+        <category>SQLite</category>
+        
+        
+        <category>projects</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="7jvmJDQ2vKfquua9_gEyNGt0vVblbDKJgWlT4WrxPb8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1; minimum-scale=1; user-scalable=no;">
+    <meta content="Luis's blog,use Jekyll and github pages." name="description">
+    <meta name="keywords" content="">
+    <meta name="author" content="Luis Larota, MSc">
+    <title>Luis Larota, MSc</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/static/assets/img/landing/foto_2.jpg">
+    <!-- Main CSS -->
+    <link href="/static/assets/app-20180125.min.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <!-- Main scripts -->
+    <script src="/static/assets/app-20180125.min.js"></script>
+    <script async defer src="/static/js/github_api.min.js"></script>
+    <!-- Google AdSense -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6196184668650108",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+<body id="page-top" class="landing-page">
+    <div class="navbar-wrapper">
+        <!-- Removed the entire navbar section -->
+        <!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> -->
+        <!-- ... existing code ... -->
+        <!-- </nav> -->
+    </div>
+    <!-- Removed the carousel section -->
+    <section id="about-me" class="features " style="margin-top: 0;">
+        <div class="container" id="i18_about_me">
+            <div class="row m-b-lg">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1><span data-i18n="about_me.about_me">About Me</span></h1>
+                    <!-- <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p> -->
+                </div>
+            </div>
+            <div class="row">
+                <!-- first two icons -->
+                <div class="col-xs-2 wow fadeInLeft">
+                    <div class="team-member">
+                        <div class="vote-icon" style="text-align: center; color: #333333;">
+                            <i class="fa icon-python"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 wow fadeInLeft">
+                    <div class="team-member">
+                        <div class="vote-icon" style="text-align: center; color: #333333;">
+                            <i class="fa icon-mssql"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- avatar -->
+                <div class="col-xs-4">
+                    <div class="team-member wow zoomIn">
+                        <img src="/static/assets/img/landing/foto_2.jpg" height="110" width="110" class="img-responsive img-circle" alt="">
+                        <h4><span class="navy">Luis</span> Larota, MSc</h4>
+                        <ul class="list-inline social-icon">
+                            <li><a href="https://github.com/luisflarota" target="blank"><i class="fa fa-github"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/lflarota" target="blank"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="mailto:fernando.larota@gmail.com"><i class="fa fa-envelope-o"></i></a></li>
+                            <!-- <li><a href="/feed.xml" target="blank"><i class="fa fa-rss"></i></a></li> -->
+                            <li><a href="/static/assets/2024 Resume Luis Larota.pdf" target="blank"><i class="fa fa-file-pdf-o"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- second two icons -->
+                <div class="col-xs-2 wow fadeInRight">
+                    <div class="team-member">
+                        <div class="vote-icon" style="text-align: center; color: #333333;">
+                            <i class="fa icon-git"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 wow fadeInRight">
+                    <div class="team-member">
+                        <div class="vote-icon" style="text-align: center; color: #333333;">
+                            <i class="fa icon-cplusplus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-justify m-t-lg m-b-lg wow zoomIn">
+                    <p>
+                        <font size="3%">
+                            <span data-i18n="about_me.des">
+                                hi, i’m luis – building data products with the supplier quality engineering team at <a href='https://www.tesla.com' target='_blank'>Tesla</a>. my journey spans engineering, mining, sustainability, and tech. <strong>Batteryroots</strong> coming soon – stay tuned!
+                            </span>
+                        </font>
+                    </p>
+                </div>
+            </div>
+            <!-- Added Research Expertise Chart -->
+            <div class="row features-block">
+                <div class="wow zoomIn col-lg-12 col-lg-offset-0">
+                    <canvas id="cs" height="80" width="300" style="width: 60%;"></canvas>
+                </div>
+                <div class="col-lg-1"></div>
+                <script>
+                    var ctx = document.getElementById("cs");
+                    var data = {
+                        labels: "Operations Research, Sup. Machine Learning, Reinforcement Learning, LLMs use, Mining Engineering".split(","),
+                        datasets: [{
+                            backgroundColor: "rgba(179,181,198,0.2)",
+                            data: [70, 60, 50, 50, 40]
+                        }]
+                    };
+                    var myRadarChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            scales: {
+                                yAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Expertise (%)'
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Research Interest'
+                                    },
+                                    display: true,
+                                    ticks: {
+                                        suggestedMin: 7,
+                                        autoSkip: false,
+                                        callback: function(value) {
+                                            return value.split(" ");
+                                        }
+                                    }
+                                }]
+                            }
+                        },
+                        plugins: [{
+                            beforeInit: function (chart) {
+                                chart.data.labels.forEach(function (label, index, labelsArr) {
+                                    if (/\n/.test(label)) {
+                                        labelsArr[index] = label.split(/\n/)
+                                    }
+                                })
+                            }
+                        }]
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+    <section id="career" class="features gray-section timeline" style="margin-top: 0;">
+        <div class="container" id="i18_career">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1><span data-i18n="career.my_career">My Career</span></h1>
+                </div>
+            </div>
+            <div class="row features-block">
+                <div class="col-lg-12">
+                    <div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
+                        <div class="vertical-timeline-block" style="height: auto;">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpRight ">
+                                <h2 style="font-size: 1.1em;">
+                                    <span data-i18n="career."><a href="https://www.tesla.com/" target="_blank">Tesla Inc - Palo Alto </a> <small>(USA)</small></span>
+                                </h2>
+                                <p style="font-size: 1.1em;">
+                                    <span data-i18n="career.">building data products with the supplier quality engineering team - my journey spans engineering, sustainability and some code!</span>
+                                </p>
+                                <span class="vertical-date"><span data-i18n="career."> Feb. 2024 - Present </span> <br/> <small><span data-i18n="career.">Supplier Quality Engineer</span></small> </span>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block" style="height: auto;">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpRight ">
+                                <h2 style="font-size: 1.1em;">
+                                    <span data-i18n="career."><a href="https://www.tesla.com/" target="_blank">Tesla Inc - Palo Alto </a> <small>(USA)</small></span>
+                                </h2>
+                                <p style="font-size: 1.1em;">
+                                    <span data-i18n="career.">sourcing cathode materials for EV batteries responsibly </span>
+                                </p>
+                                <span class="vertical-date"><span data-i18n="career."> Sept. 2023 - Dec. 2023 </span> <br/> <small><span data-i18n="career.">Battery Responsible Sourcing Intern</span></small> </span>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpLeft ">
+                                <h2 style="font-size: 1.1em;">
+                                    <span data-i18n="career."><a href="https://www.riotinto.com/en/404#main-search_q=operations%20us%20boron" target="_blank">Rio Tinto - Boron Site </a> <small>(USA)</small></span>
+                                </h2>
+                                <p style="font-size: 1.1em;">
+                                    <span data-i18n="career.">pushing mine planning to use >1% of their data </span>
+                                </p>
+                                <span class="vertical-date"><span data-i18n="career."> June 2023 - Aug. 2023 </span> <br/> <small><span data-i18n="career.">Data Engineering Intern</span></small> </span>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpRight ">
+                                <h2><span data-i18n="career."><a href="https://www.sdsmt.edu/Academics/Departments/Mining-Engineering-and-Management/Mining-Engineering-and-Management/" target="_blank">South Dakota School of Mines & Technology</a> <small>(USA)</small></span></h2>
+                                <p><span data-i18n="career."> researched optimization algorithms for fuel dispatching in open pit mines (the math was theoretical – mines aren’t ready yet!). </span></p>
+                                <span class="vertical-date"><span data-i18n="career."> Jan. 2022 - June 2023 </span> <br/> <small><span data-i18n="career.">MSc. in Mining Engineering</span></small> </span>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpLeft ">
+                                <h2><span data-i18n="career."><a href="https://www.timining.com/" target="_blank">TiMining</a> & <a href="https://www.mmg.com/our-business/las-bambas/" target="_blank">Las Bambas Copper Mine</a> <small>(Chile & Peru)</small></span></h2>
+                                <p><span data-i18n="career.">added 20% mining knowledge to code in a digital twin at TiMining. at Las Bambas, saw mining engineers as users, not creators!</span></p>
+                                <span class="vertical-date"><span data-i18n="career."> Nov. 2020 - Jan. 2020 </span> <br/> <small><span data-i18n="career.">Data Engineer & Graduate Mining Engineer</span></small> </span>
+                            </div>
+                        </div>
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="vertical-timeline-content wow rotateInUpRight ">
+                                <h2><span data-i18n="career."><a href="https://www.ing.uc.cl/en/programas-de-estudio/plan-estudios/cuales-los-majors-los-minors-ingenieria-uc/major-ingenieria-minera/" target="_blank">Pontifical Catholic University</a> & <a href="https://www2.ucsm.edu.pe/ciencias-e-ingenierias/ingenieria-de-minas/" target="_blank">Catholic University</a> <small>(Chile)</small></span></h2>
+                                <p><span data-i18n="career.">tire degradation research - started on sustainability journey! </span></p>
+                                <span class="vertical-date"><span data-i18n="career."> July 2017 - Dec. 2017 </span> <br/> <small><span data-i18n="career.">Exchange Student</span></small> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="Publications" class="features project" style="margin-top: 0;">
+        <script type="text/javascript">
+            function toggle_visibility(id) {
+                var e = document.getElementById(id);
+                if (e.style.display == 'block') e.style.display = 'none';
+                else e.style.display = 'block';
+            }
+        </script>
+        <div class="container" id="i18_projects">
+            <div class="row m-b-lg">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1><span data-i18n="projects.my_projects">Publications</span></h1>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <br> -->
+                <div class="publication">
+                    <table width="100%" align="center" border="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="50%" valign="center" align="center">
+                                    <img src="/images/atp/TERCERA.webp" width="50%" style="border-style: none">
+                                </td>
+                                <td width="50%" valign="center">
+                                    <font color="#2C90DE">
+                                        <heading>Models to Assess Fatigue Degradation</heading>
+                                    </font>
+                                    <br>
+                                    <b>Luis Larota </b> and Carlos Nakousi <br>
+                                    <em><b>Oral Presentation at</b> the XXIII International Seminar on Asset Management, Santiago - Chile</em>, 2017 <br>
+                                    <a href="https://drive.google.com/file/d/1-UTP0a9W3DdJiH6Z9IqMbwm6g2j5PdPL/view?usp=sharing" target="_blank">[pdf]</a> / <a href="https://sites.google.com/site/egaf23uc/programa?authuser=0" target="_blank">[Blog]</a> / <a href="https://www.youtube.com/watch?v=iw8dsceI5rQ&list=PLL6_WBNjRnNkaVVwsS4QrbTRwUL9YKcrV&index=28" target="_blank">[Talk]</a>
+                                    <div id="Luis2017DFatique" style="display:none; font-size:small;">
+                                        <pre>
+                                            <code>
+                                                
+
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <br>
+    </section>
+    <section id="Projects" class="features testimonials navy-section" style="margin-top: 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center wow zoomIn" id="i18_blog">
+                    <div style="height: 100px;"></div>
+                    <a class="btn btn-lg btn-default btn-rounded btn-outline wow bounceIn" href="/projects/"><span data-i18n="blog.my_blog">Coding Projects</span></a>
+                    <div style="height: 100px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+    </style>
+    <script>
+        document.getElementById('toggleBackground').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            // Toggle icon
+            const icon = document.getElementById('toggleIcon');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        });
+    </script>
+    <!-- <iframe src="https://www.maimemo.com/share/page/?uid=779139&pid=660" style="display: none;"></iframe> -->
+    <div class="container" id="i18_link">
+        <div class="row m-b-lg">
+            <div class="col-lg-12 text-center">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+                <p id="jalpc_site_pv"><strong>&copy; 2024 Luis Larota, MSc</strong></p>
+            </div>
+        </div>
+    </div>
+    <!-- Google analytics -->
+    <!-- GrowingIO -->
+</body>
+</html>
