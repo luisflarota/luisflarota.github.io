@@ -11,6 +11,7 @@ import {
 import { useState } from "react"
 import { HorizontalTimeline } from "@/components/horizontal-timeline"
 import { VisitCounter } from "@/components/visit-counter"
+import { GitHubContributions } from "@/components/github-contributions"
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false)
@@ -53,17 +54,16 @@ export default function Home() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="inline-block rounded-lg bg-green-800 text-white px-4 py-2 text-4xl font-bold">
-              hi, i&apos;m luis
+              hi, i&apos;m luis!
             </h1>
-            <p className="text-xl">:)</p>
           </div>
           <div className="prose max-w-none dark:prose-invert">
             <p>
               (trying to) build cool software! went from mining rocks in peru to mining data at tesla. engineering at the core, from mining to software to data products.
             </p>
           </div>
-          <Collapsible
-            open={isOpen}
+          <GitHubContributions username="luisflarota" />
+          <Collapsible            open={isOpen}
             onOpenChange={setIsOpen}
             className="space-y-2"
           >
@@ -96,9 +96,18 @@ export default function Home() {
         </div>
       </div>
       <HorizontalTimeline />
-      <div className="absolute bottom-4 right-4">
-        <VisitCounter />
-      </div>
+      <footer className="mt-12 text-sm text-gray-500 dark:text-gray-400 relative">
+  <div className="flex justify-center items-center">
+    <div>luis larota | fernando.larota@gmail.com</div>
+  </div>
+  <div className="absolute bottom-0 right-4 flex items-center">
+    <VisitCounter />
+  </div>
+</footer>
+
+
+
+
     </div>
   )
 }
