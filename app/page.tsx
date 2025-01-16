@@ -11,10 +11,10 @@ import {
 import { useState } from "react"
 import { HorizontalTimeline } from "@/components/horizontal-timeline"
 import { VisitCounter } from "@/components/visit-counter"
-import { GitHubContributions } from "@/components/github-contributions"
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isMistakesOpen, setIsMistakesOpen] = useState(false)
+  const [isLyingOpen, setIsLyingOpen] = useState(false)
 
   return (
     <div className="space-y-12 relative pb-16">
@@ -62,9 +62,9 @@ export default function Home() {
               (trying to) build cool software! went from mining rocks in peru to mining data at tesla. engineering at the core, from mining to software to data products.
             </p>
           </div>
-          <GitHubContributions username="luisflarota" />
-          <Collapsible            open={isOpen}
-            onOpenChange={setIsOpen}
+          <Collapsible
+            open={isMistakesOpen}
+            onOpenChange={setIsMistakesOpen}
             className="space-y-2"
           >
             <div className="flex items-center justify-between space-x-4 px-4">
@@ -75,7 +75,7 @@ export default function Home() {
                 <Button variant="ghost" size="sm" className="w-9 p-0">
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${
-                      isOpen ? "rotate-180" : ""
+                      isMistakesOpen ? "rotate-180" : ""
                     }`}
                   />
                   <span className="sr-only">Toggle</span>
@@ -84,12 +84,30 @@ export default function Home() {
             </div>
             <CollapsibleContent className="space-y-2">
               <div className="rounded-md border px-4 py-3 font-mono text-sm">
-                <ul className="list-inside list-disc space-y-2">
-                    <li>hardcoded values instead of using variables.</li>
-                    <li>coding while thinking. write the logic or flow first.</li>
-                    <li>never revisited code in production, even though improvements were possible.</li>
-                    <li>terrible at naming scripts (e.g., <code>this_is_the_new_version.py</code>).</li>
-                </ul>
+                <p className="text-red-500 font-bold">Error: I don&apos;t make coding mistakes...</p>
+                <Collapsible
+                  open={isLyingOpen}
+                  onOpenChange={setIsLyingOpen}
+                  className="mt-2"
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button variant="outline" size="sm" className="w-full justify-between">
+                      Lying <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isLyingOpen ? "rotate-180" : ""}`} />
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="mt-2">
+                    <div className="rounded-md border px-4 py-3 font-mono text-sm bg-yellow-50 dark:bg-yellow-900">
+                      <p className="mb-2 italic">Okay, okay! back in the years:</p>
+                      <ul className="list-inside list-disc space-y-2">
+                        <li>hardcoded values instead of using variables.</li>
+                        <li>coded while thinking. should&apos;ve written the logic or flow first.</li>
+                        <li>never revisited code in production, even though improvements were possible.</li>
+                        <li>terrible at naming scripts (e.g., <code>this_is_the_new_version.py</code>).</li>
+                        <li>once debugged using 100 print statements. it worked, but at what cost?</li>
+                      </ul>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
               </div>
             </CollapsibleContent>
           </Collapsible>
@@ -97,17 +115,13 @@ export default function Home() {
       </div>
       <HorizontalTimeline />
       <footer className="mt-12 text-sm text-gray-500 dark:text-gray-400 relative">
-  <div className="flex justify-center items-center">
-    <div>luis larota | fernando.larota@gmail.com</div>
-  </div>
-  <div className="absolute bottom-0 right-4 flex items-center">
-    <VisitCounter />
-  </div>
-</footer>
-
-
-
-
+        <div className="flex justify-center items-center">
+          <div>luis larota | fernando.larota@gmail.com</div>
+        </div>
+        <div className="absolute bottom-0 right-4 flex items-center">
+          <VisitCounter />
+        </div>
+      </footer>
     </div>
   )
 }
