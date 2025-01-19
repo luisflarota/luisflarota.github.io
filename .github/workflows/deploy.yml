@@ -24,12 +24,15 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Add .nojekyll file
-        run: touch ./out/.nojekyll
-
+      - name: Prepare for deployment
+        run: |
+          touch out/.nojekyll
+          cp out/404.html out/index.html || true
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
+          enable_jekyll: false
 

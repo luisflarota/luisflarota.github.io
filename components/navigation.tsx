@@ -13,7 +13,7 @@ export function Navigation() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold">
-            luis.github.io
+            luisflarota.github.io
           </Link>
           <div className="flex items-center space-x-6">
             <div className="space-x-2 font-mono text-sm">
