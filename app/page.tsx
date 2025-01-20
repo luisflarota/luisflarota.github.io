@@ -22,7 +22,7 @@ export default function Home() {
         <div className="space-y-6">
           <div className="flex justify-center">
             <Image
-              src="/final.png"
+              src="final.png"
               alt="Profile"
               width={240}
               height={80}
