@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
