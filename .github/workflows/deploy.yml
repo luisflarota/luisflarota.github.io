@@ -31,11 +31,11 @@ jobs:
         run: |
           touch out/.nojekyll
           cp out/404.html out/index.html
-          
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out
           enable_jekyll: false
 
