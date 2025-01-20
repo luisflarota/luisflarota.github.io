@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Clean install dependencies
+      - name: Install dependencies
         run: |
           rm -rf node_modules package-lock.json
           npm install
@@ -30,7 +30,7 @@ jobs:
       - name: Prepare for deployment
         run: |
           touch out/.nojekyll
-          cp out/404.html out/index.html || true
+          cp out/404.html out/index.html
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

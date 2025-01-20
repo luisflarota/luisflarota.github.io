@@ -4,12 +4,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: "",
-  assetPrefix: "",
+  basePath: "/luisflarota.github.io",
+  assetPrefix: "/luisflarota.github.io/",
   trailingSlash: true,
 }
 
 module.exports = nextConfig
 
-
-//comment
