@@ -19,12 +19,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+
+      - name: Remove package-lock.json
+        run: rm -f package-lock.json
 
       - name: Install dependencies
         run: |
-          npm ci
-          npm install @radix-ui/react-accordion @swc/helpers
+          npm install
+          npm install @swc/helpers
 
       - name: Build
         run: npm run build
