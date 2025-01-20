@@ -1,10 +1,13 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Navigation } from "@/components/navigation"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({ subsets: ["latin"] })
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+})
 
 export const metadata: Metadata = {
   title: "Luis Larota",
@@ -17,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans antialiased">
+    <html lang="en" className={`${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-mono antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Navigation />
           <main className="container mx-auto px-4 py-8">{children}</main>
