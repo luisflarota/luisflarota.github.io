@@ -19,7 +19,9 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci
+          npm install @swc/helpers
 
       - name: Build
         run: npm run build

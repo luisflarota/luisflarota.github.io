@@ -6,7 +6,7 @@ const nextConfig = {
   },
   basePath: "",
   assetPrefix: "",
-  trailingSlash: true, // This helps with static hosting
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
