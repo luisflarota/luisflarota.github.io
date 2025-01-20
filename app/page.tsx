@@ -22,7 +22,8 @@ export default function Home() {
         <div className="space-y-6">
           <div className="flex justify-center">
             <Image
-              src={process.env.NODE_ENV === "production" ? "/luisflarota.github.io/final.png" : "/final.png"}              alt="Profile"
+              src="final.png"
+              alt="Profile"
               width={240}
               height={80}
               className="h-auto rounded-lg"
