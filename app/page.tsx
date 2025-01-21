@@ -26,7 +26,7 @@ export default function Home() {
               alt="Profile"
               width={240}
               height={80}
-              className="h-auto w-[180px] md:w-[240px] rounded-lg"
+              className="h-auto w-[72px] md:w-[240px] rounded-lg"
               priority
             />
           </div>
