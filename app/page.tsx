@@ -26,7 +26,7 @@ export default function Home() {
               alt="Profile"
               width={240}
               height={80}
-              className="h-auto w-[72px] md:w-[240px] rounded-lg"
+              className="h-auto w-[96px] md:w-[240px] rounded-lg"
               priority
             />
           </div>
@@ -47,6 +47,14 @@ export default function Home() {
               <a href="https://www.linkedin.com/in/lflarota/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-6 w-6" />
                 <span className="sr-only">LinkedIn</span>
+              </a>
+            </Button>
+            <Button variant="ghost" size="icon" asChild>
+              <a href="https://x.com/luisflarota" target="_blank" rel="noopener noreferrer">
+                <svg className="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                <span className="sr-only">X (Twitter)</span>
               </a>
             </Button>
           </div>
