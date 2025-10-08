@@ -79,7 +79,7 @@ export default function Home() {
         {showLuna && (
           <div className="fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <img
-              src="http://localhost:3002/luna.jpeg"
+              src="/luna.jpeg"
               alt="Luna the dog"
               width={1000}
               height={1000}
