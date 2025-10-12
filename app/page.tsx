@@ -138,7 +138,7 @@ export default function Home() {
               <div className="text-center">
                 <h3 className="font-bold text-sm"><a href="http://timining.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">TiMining</a></h3>
                 <p className="text-gray-400 text-xs">Data Engineer</p>
-                <p className="text-xs text-gray-500">Nov 2020 - Present</p>
+                <p className="text-xs text-gray-500">Nov 2020 - Dec 2021</p>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function Home() {
               <div className="ml-8">
                 <h3 className="font-bold text-base"><a href="http://timining.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">TiMining</a></h3>
                 <p className="text-gray-400 text-sm">Data Engineer</p>
-                <p className="text-sm text-gray-500">Nov 2020 - Present</p>
+                <p className="text-sm text-gray-500">Nov 2020 - Dec 2021</p>
               </div>
             </div>
           </div>
