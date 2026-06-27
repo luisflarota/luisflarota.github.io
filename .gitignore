@@ -40,6 +40,3 @@ next-env.d.ts
 
 # OS
 Thumbs.db
-out/
-/out/
-out/.*
