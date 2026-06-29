@@ -2,7 +2,7 @@ const links = [
   { label: "github", href: "https://github.com/luisflarota", display: "github.com/luisflarota" },
   { label: "x", href: "https://x.com/luisflarota", display: "x.com/luisflarota" },
   { label: "linkedin", href: "https://www.linkedin.com/in/lflarota/", display: "in/lflarota" },
-  { label: "substack", href: "https://substack.com/@luisfchinche", display: "substack.com/@luisfchinche" },
+  { label: "substack", href: "https://substack.com/@lflarota", display: "substack.com/@lflarota" },
   { label: "email", href: "mailto:fernando.larota@gmail.com", display: "fernando.larota@gmail.com" },
 ]
 
