@@ -1,0 +1,26 @@
+---
+title: "Fuel Dispatching for Haul Trucks"
+date: 2024-06-01
+tags: ["Mining / OR", "ML"]
+description: "My MSc thesis — predict truck fuel use with ML, then schedule refueling with an integer program."
+---
+
+In an open-pit mine, dispatchers decide which haul truck to send for fuel mostly by intuition and radio calls. Pull the wrong truck at the wrong moment and you starve a shovel, quietly dragging down the productivity of the whole fleet. My MSc thesis turned that judgment call into an optimization problem.
+
+It has two coupled parts.
+
+**1. Predict fuel consumption (ML).** I benchmarked six regression models to predict liters consumed from effective flat-haul distance and tonnage. An artificial neural network won with $R^2 \approx 0.90$; multilinear regression was close and far cheaper, so it ships as a fast pre-trained fallback.
+
+**2. Schedule refueling (optimization).** A binary integer program decides which truck fuels and when, maximizing the total truck–shovel **match factor** so refueling disrupts production as little as possible:
+
+$$
+\max \sum_{t}\sum_{\tau} m_{t}\,y_{t,\tau}
+$$
+
+where $y_{t,\tau} = 1$ if truck $t$ is sent to fuel in period $\tau$. Constraints keep it physical: at most one truck fueling at a time, each truck fuels at most once, a 15-minute non-overlapping fueling window, and nobody runs dry.
+
+Solved with Gurobi, it runs in **under a second for a fleet of 57 trucks**, improving the average match factor by about a point versus current practice. The whole pipeline is wrapped in a Streamlit app so a dispatcher can pick a shift, run the optimizer, and compare its plan against what the mine actually did.
+
+- [Code on GitHub](https://github.com/luisflarota/Fuel-dispatching)
+- [Live demo](https://luisflarota-650finalthesis-front-3vvewc.streamlit.app/)
+- [Thesis on ProQuest](https://www.proquest.com/docview/2920319844)

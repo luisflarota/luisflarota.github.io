@@ -1,5 +1,8 @@
 const nextConfig = {
-  output: "export",
+  // Static export only for production builds (CI / `next build`). In `next dev`
+  // we leave this undefined so the dev server renders routes on demand and does
+  // not require generateStaticParams() for every dynamic route.
+  output: process.env.NODE_ENV === "production" ? "export" : undefined,
   images: {
     unoptimized: true,
   },

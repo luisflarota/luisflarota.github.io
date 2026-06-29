@@ -1,0 +1,81 @@
+---
+title: "Ultimate Pit Limit Solver (Pseudoflow)"
+date: 2020-07-01
+tags: ["Mining / OR"]
+description: "An interactive app that finds the optimal open-pit outline by turning the mine into a max-flow / min-cut problem."
+---
+
+Every open-pit mine starts with one deceptively simple question: **which rocks should we dig up?** Dig too little and you leave money in the ground; dig too much and you pay to move waste that never pays for itself. The economically optimal answer — the largest pit whose contained value exceeds the cost of reaching it, while respecting how steep the walls can safely be — is the **ultimate pit limit (UPL)**.
+
+Most mining engineers meet this problem as a 2-D textbook exercise (Lerchs–Grossmann by hand) and then spend their careers as *users* of black-box software. I wanted to build the real thing — solver and all.
+
+## Give every block a value
+
+The orebody is discretized into a 3-D block model. Each block $i$ gets an economic value $v_i$: positive if the metal it contains is worth more than the cost to mine and process it, negative if it is just waste you must move. With a cutoff grade $g_c$ separating ore from waste,
+
+$$
+g_c = \frac{C_m + C_p + d\,C_i}{(P - C_t)\,R \times 22.04}
+$$
+
+where $C_m, C_p$ are mining and processing cost, $P$ the metal price, $C_t$ the treatment charge, $R$ the recovery, and $d$ a depth-dependent increment. A block's value is then
+
+$$
+v_i =
+\begin{cases}
+(P - C_t)\,R\,g_i\,T_i \times 22.04 - (C_m + C_p)\,T_i & \text{if ore} \\[4pt]
+-\,C_m\,T_i & \text{if waste}
+\end{cases}
+$$
+
+for grade $g_i$ and tonnage $T_i$.
+
+## The trick: it is a minimum cut
+
+Here is the elegant part. Finding the maximum-value set of blocks subject to slope precedence is equivalent to a **minimum cut** on a graph — and by the max-flow/min-cut theorem, you can solve it with a max-flow algorithm.
+
+Build a directed graph with a source $s$ and sink $t$:
+
+- connect $s \to i$ with capacity $v_i$ for every **ore** block,
+- connect $i \to t$ with capacity $-v_i$ for every **waste** block,
+- connect $i \to j$ with **infinite** capacity whenever block $j$ must be removed before block $i$ (the slope/precedence constraint).
+
+Saturate the network with max flow; the blocks on the source side of the resulting min cut *are* the optimal pit.
+
+```python
+import networkx as nx
+
+G = nx.DiGraph()
+SOURCE, SINK = "s", "t"
+
+for i, block in enumerate(blocks):
+    v = block_value(block)
+    if v > 0:
+        G.add_edge(SOURCE, i, capacity=v)       # ore: fed by the source
+    else:
+        G.add_edge(i, SINK, capacity=-v)        # waste: drains to the sink
+
+# slope precedence: mine a block only if the blocks above it are mined too
+for i, parents in precedence(blocks):
+    for p in parents:
+        G.add_edge(i, p, capacity=float("inf"))
+
+# the source side of the minimum cut is the optimal pit
+cut_value, (pit, _rest) = nx.minimum_cut(G, SOURCE, SINK)
+```
+
+In the real solver I swap `networkx`'s generic max-flow for **Hochbaum's pseudoflow** algorithm, which is purpose-built for exactly this min-cut structure and scales to millions of blocks. The precedence cone — which blocks sit "above" a given block — comes from a `cKDTree` ball query, with the wall angle controlling how wide the cone is:
+
+| Wall angle | Pattern | Blocks above |
+| --- | --- | --- |
+| ~45° | 1–5 | 5 |
+| ~40° | 1–9 | 9 |
+
+## Making it tangible
+
+The whole thing lives in an interactive Streamlit app: upload a block-model CSV (or use the bundled default), it cleans coordinate outliers, renders the 3-D block model and a grade–tonnage curve in Plotly, takes your economic parameters, and then draws the resulting pit in 3-D with its total undiscounted value.
+
+The point was never just the answer — it was understanding the machine well enough to *build* it.
+
+**Stack:** Python · pseudoflow · NetworkX · SciPy (`cKDTree` for slope precedence) · Plotly · Streamlit.
+
+- [Code on GitHub](https://github.com/luisflarota/Ultimate-Pit-Limit---Pseudoflow)
