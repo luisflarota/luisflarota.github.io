@@ -19,7 +19,7 @@ $$
 
 where $y_{t,\tau} = 1$ if truck $t$ is sent to fuel in period $\tau$. Constraints keep it physical: at most one truck fueling at a time, each truck fuels at most once, a 15-minute non-overlapping fueling window, and nobody runs dry.
 
-Solved with Gurobi, it runs in **under a second for a fleet of 57 trucks**, improving the average match factor by about a point versus current practice. The whole pipeline is wrapped in a Streamlit app so a dispatcher can pick a shift, run the optimizer, and compare its plan against what the mine actually did.
+Solved with `Gurobi`, it runs in **under a second for a fleet of 57 trucks**, improving the average match factor by about a point versus current practice. The whole pipeline is wrapped in a `Streamlit` app so a dispatcher can pick a shift, run the optimizer, and compare its plan against what the mine actually did.
 
 - [Code on GitHub](https://github.com/luisflarota/Fuel-dispatching)
 - [Live demo](https://luisflarota-650finalthesis-front-3vvewc.streamlit.app/)
