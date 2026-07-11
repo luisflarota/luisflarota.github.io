@@ -1,7 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import { listEntries, type Entry } from "@/lib/content"
-import { LunaWord } from "@/components/luna-word"
 
 function Teasers({
   title,
@@ -69,16 +68,16 @@ export default function Home() {
 
   return (
     <div className="space-y-16">
-      <section className="flex items-start gap-5">
+      <section className="flow-root">
         <Image
           src="/avatar.jpg"
           alt="Luis Larota"
           width={72}
           height={72}
-          className="h-[72px] w-[72px] shrink-0 rounded-lg object-cover"
+          className="float-left mb-2 mr-5 h-[72px] w-[72px] rounded-lg object-cover"
           priority
         />
-        <p className="min-w-0 text-[15px] leading-relaxed text-neutral-700">
+        <p className="text-[15px] leading-relaxed text-neutral-700">
           from mining rocks in peru to mining data. software engineer at{" "}
           <a
             href="https://tesla.com"
@@ -88,9 +87,22 @@ export default function Home() {
           >
             tesla
           </a>{" "}
-          — building, refactoring, and (yes, with ai) cleaning up code for supply
-          chain. i live in sf with my sister, my brother-in-law, and <LunaWord />.{" "}
-          <span className="text-accent-dark">also: my initials spell LLM.</span>
+          — started out building internal tools (mostly{" "}
+          <code className="code">react</code>) and now refactoring infra for
+          agentic use cases in supply chain.{" "}
+          <span className="text-accent-dark">
+            deeply curious about how to achieve{" "}
+            <a
+              href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-accent-dark/40 underline-offset-4 hover:decoration-accent-dark"
+            >
+              deep work
+            </a>{" "}
+            across all domains (eg. sleep, exercise, work). also: my initials
+            spell LLM.
+          </span>
         </p>
       </section>
 

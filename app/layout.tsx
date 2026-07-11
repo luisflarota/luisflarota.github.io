@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
-    apple: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 }
 
@@ -38,12 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={mono.variable}>
-      <body className="min-h-screen overflow-x-hidden font-mono">
-        <div className="layout py-10 sm:py-16">
+      <body className="overflow-x-hidden font-mono">
+        <div className="layout pb-28 pt-10 sm:pt-16">
           <SiteHeader />
           <main>{children}</main>
-          <SiteFooter />
         </div>
+        <SiteFooter />
       </body>
     </html>
   )
