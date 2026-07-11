@@ -16,6 +16,14 @@
   a {
     @apply transition-colors;
   }
+  /* Hide the scrollbar chrome but keep scrolling (Cursor-style). */
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
@@ -28,6 +36,21 @@
   .dotted-rule {
     @apply border-b border-dotted border-neutral-300;
   }
+  /* Tech wording (e.g. `react`, `pseudoflow`) reads as a syntax-highlighted
+     token — same purple the fenced code blocks use — not a boxed md pill. */
+  .code {
+    @apply font-medium text-[#6f42c1];
+  }
+}
+
+/* Markdown inline code (single backticks) — same token style as .code, minus
+   the typography plugin's default backtick quotes. Excludes fenced blocks. */
+.prose :not(pre) > code {
+  @apply font-medium text-[#6f42c1];
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: "";
 }
 
 /* Subtle slide-in + fade on navigation (applied via app/template.tsx),
