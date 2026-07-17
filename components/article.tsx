@@ -8,6 +8,7 @@ import "katex/dist/katex.min.css"
 import "highlight.js/styles/github.css"
 import type { Entry } from "@/lib/content"
 import { formatDate } from "@/lib/format"
+import { mdxComponents } from "@/components/mdx-components"
 
 // Cast to any: remark/rehype plugin types drift between versions and trip the
 // next build type-check; the runtime shape is correct.
@@ -57,7 +58,11 @@ export function Article({
             HTML in the page shortly.
           </p>
         ) : (
-          <MDXRemote source={entry.content} options={mdxOptions} />
+          <MDXRemote
+            source={entry.content}
+            options={mdxOptions}
+            components={mdxComponents}
+          />
         )}
       </div>
     </article>
