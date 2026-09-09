@@ -1,6 +1,5 @@
 const links = [
   { label: "github", href: "https://github.com/luisflarota" },
-  { label: "x", href: "https://x.com/luisflarota" },
   { label: "linkedin", href: "https://www.linkedin.com/in/lflarota/" },
   { label: "substack", href: "https://substack.com/@lflarota" },
   { label: "email", href: "mailto:fernando.larota@gmail.com" },
